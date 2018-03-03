@@ -1,0 +1,10 @@
+{
+  "foo": "foo",
+  "increment": "increment",
+  "decrement": "decrement",
+  "count": "count",
+  "count_plural": "count",
+  "description": "description",
+  "keywords": "keywords",
+  "author": "author"
+}

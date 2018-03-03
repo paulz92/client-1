@@ -1,0 +1,5 @@
+{
+  "increment": "increment",
+  "decrement": "decrement",
+  "count": "count: {{count}}"
+}
