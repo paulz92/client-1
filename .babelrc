@@ -5,6 +5,12 @@
     "next/babel"
   ],
   "plugins": [
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "@": "./"
+      }
+    }],
     ["transform-runtime", {
       "polyfill": false,
       "regenerator": true

@@ -5,12 +5,13 @@ const express = require('express'),
   next = require('next'),
   i18nMiddleware = require('i18next-express-middleware'),
   i18nBackend = require('i18next-node-fs-backend'),
-  i18n = require('./i18n')
+  i18n = require('./i18n'),
+  routes = require('./isomorphic/routes')
 
 const dev = process.env.NODE_ENV !== 'production'
 
 const app = next({ dev }),
-  handle = app.getRequestHandler()
+  handler = routes.getRequestHandler(app)
 
 i18n
   .use(i18nBackend)
@@ -34,7 +35,7 @@ i18n
           .use('/public', express.static(__dirname + '/public'))
           .use('/locales', express.static(__dirname + '/locales'))
           .post('/locales/add/:lng/:ns', i18nMiddleware.missingKeyHandler(i18n))
-          .get('*', (req, res) => handle(req, res))
+          .use(handler)
           .listen(3000, err => {
             if (err) throw err
             console.log('> Ready on http://localhost:3000')

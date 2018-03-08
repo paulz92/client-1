@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 
-import { Button } from '../components'
-import { incrementCount, decrementCount } from '../actions'
-import { withTranslate, withRedux, withMaterialUI } from '../utils'
+import { Button, Layout } from '@/components'
+import { incrementCount, decrementCount } from '@/actions'
+import { withTranslate, withRedux, withMaterialUI } from '@/utils'
 
 const mapStateToProps = ({ count }) => ({ count })
 const mapDispatchToProps = dispatch => (
@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => (
 )
 
 const Root = styled.div`
-  height: 100vh;
+  flex-grow: 1;
   width: 100%;
   flex-direction: column;
   display: flex;
@@ -26,15 +26,15 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `
 
+@withMaterialUI()
 @withRedux(mapStateToProps, mapDispatchToProps)
 @withTranslate(['home', 'common'])
-@withMaterialUI()
 export default class Home extends Component {
   render() {
     const { t, incrementCount, decrementCount, count } = this.props
 
     return (
-      <div>
+      <Layout>
         <Root>
           <h1>{t('count', { count: count.count })}</h1>
           <ButtonContainer>
@@ -52,8 +52,7 @@ export default class Home extends Component {
             </Button>
           </ButtonContainer>
         </Root>
-      </div>
+      </Layout>
     )
   }
 }
-
