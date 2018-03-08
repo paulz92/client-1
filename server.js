@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express'),
+  cookieParser = require('cookie-parser'),
   next = require('next'),
   i18nMiddleware = require('i18next-express-middleware'),
   i18nBackend = require('i18next-node-fs-backend'),
@@ -28,6 +29,7 @@ i18n
         const server = express()
 
         server
+          .use(cookieParser())
           .use(i18nMiddleware.handle(i18n))
           .use('/public', express.static(__dirname + '/public'))
           .use('/locales', express.static(__dirname + '/locales'))

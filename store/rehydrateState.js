@@ -1,9 +1,9 @@
-export default () => {
-  // can't get state from server; need browser env
-  if (!process.browser) return undefined
-
+export default ({ isServer, req }) => {
   try {
-    const serializedState = localStorage.getItem('state')
+    const serializedState = isServer
+      ? req.cookies.state
+      : localStorage.getItem('state')
+
     return serializedState === null ?
       undefined : JSON.parse(serializedState)
   } catch (err) {
