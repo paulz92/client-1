@@ -7,10 +7,10 @@ import rootReducer from '../reducers'
 import persistState from './persistState'
 import rehydrateState from './rehydrateState'
 
-export const initStore = (initialState) => {
+export const initStore = (initialState, { isServer, req }) => {
   const store = createStore(
     rootReducer,
-    initialState || rehydrateState(),
+    initialState || rehydrateState({ isServer, req }),
     composeWithDevTools(
       applyMiddleware(thunk, logger)
     ),

@@ -9,7 +9,7 @@ const options = {
   load: 'languageOnly',
   ns: ['common'],
   defaultNs: 'common',
-  debug: true,
+  debug: false,
   saveMissing: true,
   interpolation: {
     escapeValue: false,
