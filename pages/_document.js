@@ -1,13 +1,13 @@
 import { default as $Document, Head, Main, NextScript } from 'next/document'
 
-import { withTranslate } from '../utils'
+import { withTranslate, withMaterialUI } from '../utils'
 
 @withTranslate(['common'])
 export default class Document extends $Document {
   static async getInitialProps(ctx) {
     const { html, head, errorHtml, chunks } = ctx.renderPage()
-    const { session } = ctx.req
-    return { html, head, errorHtml, chunks, session }
+    const { state } = ctx.req.cookies || {}
+    return { html, head, errorHtml, chunks, state }
   }
 
   render() {
@@ -28,11 +28,13 @@ export default class Document extends $Document {
           <script
             id="session"
             type="application/json"
-            dangerouslySetInnerHtml={{
-              _html: JSON.stringify(this.props.session, null, 2)
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(this.props.state, null, 2)
             }}
           />
           {/* ASSETS */}
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+          <link rel="stylesheet" href="_next/static/style.css" />
           <link rel="stylesheet" href="/public/global.css" />
         </Head>
         <body>

@@ -1,0 +1,14 @@
+$accent-color: #B71C1C;
+
+.header-root {
+  display: flex;
+  background-color: #fff !important;
+}
+
+.header-root .header-icon-button {
+  color: $accent-color;
+}
+
+.header-more-icon {
+  margin-left: auto;
+}
