@@ -28,7 +28,7 @@ export const CarCard = (props) => {
         </Typography>
       </CardContent>
       <div className={styles.carChipsRoot}>
-        {props.tags.map(tag => <Chip className={styles.carChips} label={tag}/>)}
+        {props.tags.map(tag => <Chip className={styles.carChips} label={tag} key={tag}/>)}
       </div>
       {/* add in code to make this price div null on cars page but active on marketplace page
       <div>

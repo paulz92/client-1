@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import MoreIcon from 'material-ui-icons/MoreVert'
 
-import { Link } from '@/isomorphic/routes'
+import { Link, Router } from '@/isomorphic/routes'
 import styles from './index.scss'
 
 const HeaderLink = ({ to, label }) => (
@@ -13,9 +13,9 @@ const HeaderLink = ({ to, label }) => (
   </Link>
 )
 
-const HeaderButton = ({ onClick, label }) => (
+const HeaderButton = ({ to, label }) => (
   <Button
-    onClick={onClick}
+    onClick={() => Router.push(to)}
     className={styles.button}
     variant="raised"
   >
@@ -26,8 +26,8 @@ const HeaderButton = ({ onClick, label }) => (
 export const Header = () => (
   <AppBar className={styles.appBar} position="static">
     <Toolbar className={styles.topToolBar}>
-      <HeaderButton label="REGISTER" />
-      <HeaderButton label="LOGIN" />
+      <HeaderButton to="/register" label="REGISTER" />
+      <HeaderButton to="/login" label="LOGIN" />
     </Toolbar>
     <Toolbar className={styles.bottomToolBar}>
       <HeaderLink to="/" label="CARS" />
