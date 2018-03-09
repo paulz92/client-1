@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({ incrementCount, decrementCount }, dispatch)
 )
 
-@withMaterialUI()
 @withRedux(mapStateToProps, mapDispatchToProps)
 @withTranslate(['home', 'common'])
 export default class Home extends Component {
