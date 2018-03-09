@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.avatarPic {
+  background-color: #B71C1C !important;
+}
+
 .carCardContent {
   max-width: 100%;
   flex-grow: 1;
@@ -26,10 +30,15 @@
   margin-top: 10px;
 }
 
+.carButtonRoot {
+  display: flex;
+  justify-content: space-around;
+}
+
 .carLikeButton {
-  width: 100%;
+  width: 45%;
   background-color: #B71C1C !important;
   color: white !important;
   font-weight: bold !important;
-  margin-top: 5px !important;
+  margin: 5px 0px !important;
 }

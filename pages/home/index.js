@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import styled from 'styled-components'
 
 import { Button, CarCard } from '@/components'
 import { Layout } from '@/containers'
@@ -24,20 +23,9 @@ export default class Home extends Component {
     return (
       <Layout>
         <div className={styles.root}>
-          <h1>{t('count', { count: count.count })}</h1>
-          <div className={styles.buttons}>
-            <Button
-              onClick={() => incrementCount()}
-              variant="raised"
-            >
-              {t`increment`}
-            </Button>
-            <Button
-              onClick={() => decrementCount()}
-              variant="raised"
-            >
-              {t`decrement`}
-            </Button>
+          <h1>Cars</h1>
+          <div className={styles.searchBar}>
+            search bar will go here
           </div>
           <div className={styles.homeCarCardsRoot}>
             <CarCard 
@@ -48,7 +36,7 @@ export default class Home extends Component {
               carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
               tags={["sedan", "family"]}
               owner="Test McTest"
-              carAction="Like this car" />
+              carAction="Like" />
             <CarCard 
               carMake="Mazda" 
               carModel="Miata" 
@@ -57,7 +45,7 @@ export default class Home extends Component {
               carPic="http://wpmedia.driving.ca/2017/11/chrome-image-389045.png?w=800&h=520&crop=1"
               tags={["sporty", "quick"]}
               owner="Tester McTesterson"
-              carAction="Like this car" />
+              carAction="Like" />
             <CarCard 
               carMake="Ford" 
               carModel="Excursion" 
@@ -66,7 +54,7 @@ export default class Home extends Component {
               carPic="https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg"
               tags={["big", "ford"]}
               owner="Testy MacTestytesterson"
-              carAction="Like this car" />  
+              carAction="Like" />  
           </div>
         </div>
       </Layout>
