@@ -2,29 +2,17 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 
-import { Button, Layout } from '@/components'
+import { Button } from '@/components'
+import { Layout } from '@/containers'
 import { incrementCount, decrementCount } from '@/actions'
 import { withTranslate, withRedux, withMaterialUI } from '@/utils'
+
+import styles from './index.scss'
 
 const mapStateToProps = ({ count }) => ({ count })
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ incrementCount, decrementCount }, dispatch)
 )
-
-const Root = styled.div`
-  flex-grow: 1;
-  width: 100%;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const ButtonContainer = styled.div`
-  width: 250px;
-  display: flex;
-  justify-content: space-between;
-`
 
 @withMaterialUI()
 @withRedux(mapStateToProps, mapDispatchToProps)
@@ -35,9 +23,9 @@ export default class Home extends Component {
 
     return (
       <Layout>
-        <Root>
+        <div className={styles.root}>
           <h1>{t('count', { count: count.count })}</h1>
-          <ButtonContainer>
+          <div className={styles.buttons}>
             <Button
               onClick={() => incrementCount()}
               variant="raised"
@@ -50,9 +38,10 @@ export default class Home extends Component {
             >
               {t`decrement`}
             </Button>
-          </ButtonContainer>
-        </Root>
+          </div>
+        </div>
       </Layout>
     )
   }
 }
+

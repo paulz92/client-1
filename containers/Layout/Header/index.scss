@@ -1,0 +1,20 @@
+@import 'styles/vars';
+@import 'styles/mixins';
+
+.appBar {
+  @include flex();
+  background: #fff !important;
+}
+
+.toolBar {
+  width: 100%;
+}
+
+.menuButton, .moreButton, .title {
+  color: $torq-red !important;
+}
+
+.moreButton {
+  margin-left: auto !important;
+}
+

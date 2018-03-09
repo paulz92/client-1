@@ -1,7 +1,9 @@
+import styles from './index.scss'
+
 export const Footer = () => {
   const year = (new Date()).getFullYear()
   return (
-    <footer style={{ textAlign: 'center', padding: '10px 0' }}>
+    <footer className={styles.root}>
       &copy; {year} Torq, Inc.
     </footer>
   )

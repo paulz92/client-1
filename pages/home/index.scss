@@ -1,4 +1,11 @@
+@import 'styles/vars';
+@import 'styles/mixins';
+
 .root {
-  background: #9e0;
-  color: #fff;
+  @include flex(column, center, center);
+}
+
+.buttons {
+  width: 250px !important;
+  @include flex(row, null, space-between);
 }
