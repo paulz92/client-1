@@ -18,6 +18,18 @@ const Root = styled.div`
 @withMaterialUI()
 @withTranslate(['profile', 'common'])
 export default class Profile extends Component {
+  state = {
+    modalOpen: false,
+  };
+
+  handleModalOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
     return (
       <Layout>
@@ -25,7 +37,10 @@ export default class Profile extends Component {
           <ProfCard 
             name="Test McTest" 
             city="Raleigh, NC" 
-            bio="Hey, I'm a test user from a test city with a test car."/>
+            bio="Hey, I'm a test user from a test city with a test car."
+            shouldModalBeOpen={this.state.modalOpen}
+            openModal={this.handleModalOpen}
+            closeModal={this.handleModalClose} />
         </Root>
       </Layout>
     )
