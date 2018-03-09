@@ -20,37 +20,35 @@ const Root = styled.div`
   justify-content: center;
 `
 
-const ButtonContainer = styled.div`
-  width: 250px;
-  display: flex;
-  justify-content: space-between;
-`
+// const ButtonContainer = styled.div`
+//   width: 250px;
+//   display: flex;
+//   justify-content: space-between;
+// `
 
 @withMaterialUI()
 @withRedux(mapStateToProps, mapDispatchToProps)
 @withTranslate(['profile', 'common'])
 export default class Profile extends Component {
   render() {
-    const { t, incrementCount, decrementCount, count } = this.props
+    // const { t, incrementCount, decrementCount, count } = this.props
 
     return (
       <Layout>
         <Root>
-          <h1>{t('count', { count: count.count })}</h1>
-          <ButtonContainer>
-            <Button
-              onClick={() => incrementCount()}
-              variant="raised"
-            >
-              {t`increment`}
-            </Button>
-            <Button
-              onClick={() => decrementCount()}
-              variant="raised"
-            >
-              {t`decrement`}
-            </Button>
-          </ButtonContainer>
+          <div>
+            <h1>Profile Page</h1>
+          </div>
+          <div>
+            <h1>name</h1>
+          </div>
+          <div>
+            <h1>location</h1>
+          </div>
+          <div>
+            <h1>Bio</h1>
+          </div>
+          
         </Root>
       </Layout>
     )
