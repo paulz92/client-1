@@ -22,8 +22,8 @@ export class ProfileTab extends Component {
           value={this.state.tab}
           onChange={(e, value) => this.handleChange(value)}
           fullWidth
-          indicatorColor="secondary"
-          textColor="secondary"
+          indicatorColor="#ba000d"
+          textColor="#ba000d"
         >
           <Tab icon={<DirectionsCar />} label="MY CAR" />
           <Tab icon={<FavoriteIcon />} label="FAVORITE CARS" />
