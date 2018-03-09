@@ -9,3 +9,8 @@
   width: 250px !important;
   @include flex(row, null, space-between);
 }
+
+.homeCarCardsRoot {
+  display: flex;
+  flex-direction: row;
+}
