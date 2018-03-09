@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 
-import { Button, Layout } from '@/components'
+import { Button } from '@/components'
+import { Layout } from '@/containers'
 import { incrementCount, decrementCount } from '@/actions'
 import { withTranslate, withRedux, withMaterialUI } from '@/utils'
 

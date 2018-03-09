@@ -1,0 +1,15 @@
+@import 'styles/mixins';
+
+.root {
+  width: 100%;
+  min-height: 100vh !important;
+  @include flex(column, center, center);
+}
+
+.header, .footer, .child {
+  width: 100% !important;
+}
+
+.child {
+  flex-grow: 1 !important;
+}
