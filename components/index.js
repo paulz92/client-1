@@ -1,5 +1,6 @@
 export * from './Button'
 export * from './ProfCard'
 export * from './CarCard'
+export * from './Filter'
 export * from './ProfileTab'
 export * from './NewPostModal'

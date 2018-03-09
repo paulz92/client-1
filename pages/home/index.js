@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 
 import { Button, CarCard, NewPostModal } from '@/components'
 import { Layout } from '@/containers'
+
 import { incrementCount, decrementCount } from '@/actions'
 import { withTranslate, withRedux, withMaterialUI } from '@/utils'
 
@@ -14,7 +15,7 @@ const mapDispatchToProps = dispatch => (
 )
 
 @withRedux(mapStateToProps, mapDispatchToProps)
-@withTranslate(['home', 'common'])
+@withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
     modalOpen: false,
