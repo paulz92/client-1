@@ -4,3 +4,13 @@
   align-items: $align !important;
   justify-content: $justify !important;
 }
+
+@mixin underline($color: null, $style: solid) {
+  text-decoration: underline;
+  text-decoration-color: $color;
+  -webkit-text-decoration-color: $color;
+  -moz-text-decoration-color: $color;
+  text-decoration-style: $style;
+  -webkit-text-decoration-style: $style;
+  -moz-text-decoration-style: $style;
+}
