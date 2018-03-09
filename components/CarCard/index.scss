@@ -1,12 +1,28 @@
 .carCardRoot {
   width: 300px !important;
   margin: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .carCardContent {
   max-width: 100%;
+  flex-grow: 1;
 }
 
 .carPic {
   height: 200px;
+}
+
+.carChips {
+  margin: 5px;
+}
+
+
+
+.carLikeButton {
+  width: 100%;
+  background-color: #B71C1C !important;
+  color: white !important;
+  font-weight: bold !important;
 }
