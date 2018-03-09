@@ -2,19 +2,71 @@
 @import 'styles/mixins';
 
 .appBar {
-  @include flex();
+  @include flex(column, center);
   background: #fff !important;
 }
 
-.toolBar {
+.topToolBar {
+  @include flex(row, center, flex-end);
+}
+
+.bottomToolBar {
+  @include flex(row, flex-end, space-between);
+}
+
+.mobileToolBar {
   width: 100%;
+  @include flex(row, center, space-between)
 }
 
-.menuButton, .moreButton, .title {
+.topToolBar, .bottomToolBar {
+  display: none !important;
+  min-height: 50px !important;
+  height: 50px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 650px;
+}
+
+.button {
+  background-color: #aaa !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+}
+
+.button:first-of-type {
+  margin-right: 10px;
+}
+
+.brand {
   color: $torq-red !important;
+  font-size: 35px !important;
+  font-weight: 700 !important;
+  margin-bottom: 5px !important;
+  cursor: pointer;
 }
 
-.moreButton {
-  margin-left: auto !important;
+.link {
+  color: #777 !important;
+  text-transform: capitalize !important;
+  letter-spacing: 0.125em;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-bottom: 3px solid transparent;
+  margin-bottom: 10px !important;
+  cursor: pointer;
 }
 
+.link:hover {
+  border-color: $torq-red;
+}
+
+@media screen and (min-width: 900px) {
+  .mobileToolBar {
+    display: none !important;
+  }
+
+  .topToolBar, .bottomToolBar {
+    display: flex !important;
+  }
+}
