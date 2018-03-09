@@ -1,12 +1,12 @@
-import Link from 'next/link'
 import { AppBar, Toolbar, Typography, Button, IconButton } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import MoreIcon from 'material-ui-icons/MoreVert'
 
+import { Link } from '@/isomorphic/routes'
 import styles from './index.scss'
 
 const HeaderLink = ({ to, label }) => (
-  <Link href={to}>
+  <Link route={to}>
     <Typography className={styles.link}>
       {label}
     </Typography>
