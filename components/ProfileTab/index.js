@@ -4,6 +4,7 @@ import { Paper, Tab, Tabs } from 'material-ui'
 import PhoneIcon from 'material-ui-icons/Phone'
 import FavoriteIcon from 'material-ui-icons/Favorite'
 import PersonPinIcon from 'material-ui-icons/PersonPin'
+import DirectionsCar from 'material-ui-icons/DirectionsCar'
 
 export class ProfileTab extends Component {
   state = {
@@ -21,14 +22,14 @@ export class ProfileTab extends Component {
           value={this.state.tab}
           onChange={(e, value) => this.handleChange(value)}
           fullWidth
-          indicatorColor="secondary"
-          textColor="secondary"
+          indicatorColor="#ba000d"
+          textColor="#ba000d"
         >
-          <Tab icon={<PhoneIcon />} label="RECENTS" />
-          <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-          <Tab icon={<PersonPinIcon />} label="NEARBY" />
+          <Tab icon={<DirectionsCar />} label="MY CAR" />
+          <Tab icon={<FavoriteIcon />} label="FAVORITE CARS" />
+          <Tab icon={<PersonPinIcon />} label="CARS OF INTEREST" />
         </Tabs>
-        { this.state.tab === 0 ? 'foo' : 'bar' }
+        { this.state.tab === 0 ? 'My Car' : 'FAVORITE CARS'  }
       </Paper>
     )
   }

@@ -23,7 +23,11 @@ export default class Profile extends Component {
   render() {
     return (
       <Layout>
+        
         <div className={styles.profPageHead}>
+          <div>
+             
+          </div>
           <ProfCard 
               shouldModalBeOpen={this.state.modalOpen} 
               openModal={this.handleModalOpen} 
@@ -33,7 +37,7 @@ export default class Profile extends Component {
               bio="Hey, I'm a test user from a test city with a test car." />
         </div>
         <div>
-          <ProfileTab />
+        <ProfileTab />
         </div>
       </Layout>
     )
