@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => (
 )
 
 @withRedux(mapStateToProps, mapDispatchToProps)
-@withTranslate(['home', 'common'])
+@withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
     modalOpen: false,
