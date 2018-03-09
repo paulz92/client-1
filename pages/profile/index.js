@@ -13,6 +13,12 @@ export default class Profile extends Component {
       <Layout>
         <div>
           <ProfileTab />
+          </div>
+        <div>
+          <ProfCard 
+            name="Test McTest" 
+            city="Raleigh, NC" 
+            bio="Hey, I'm a test user from a test city with a test car."/>
         </div>
       </Layout>
     )
