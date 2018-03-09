@@ -5,9 +5,9 @@
   @include flex(column, center, center);
 }
 
-.buttons {
+.searchBar {
+  text-align: center !important;
   width: 250px !important;
-  @include flex(row, null, space-between);
 }
 
 .homeCarCardsRoot {

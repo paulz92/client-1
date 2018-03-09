@@ -5,7 +5,7 @@ routes
   .add('Home', '/')
   .add('Login', '/login')
   .add('Marketplace', '/marketplace')
-  .add('Profile', '/user/:username')
+  .add('Profile', '/profile')
   .add('Register', '/register')
 
 module.exports = routes
