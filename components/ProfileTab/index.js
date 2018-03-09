@@ -1,40 +1,35 @@
+import { Component } from 'react'
 
-import SwipeableViews from 'react-swipeable-views';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Typography from 'material-ui/Typography';
+import { Paper, Tab, Tabs } from 'material-ui'
+import PhoneIcon from 'material-ui-icons/Phone'
+import FavoriteIcon from 'material-ui-icons/Favorite'
+import PersonPinIcon from 'material-ui-icons/PersonPin'
 
-export const ProfileTab = (props) =>
+export class ProfileTab extends Component {
+  state = {
+    tab: 0
+  }
 
-// function TabContainer({ children, dir }) {
-//     return (
-//       <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
-//         {children}
-//       </Typography>
-//     );
-//   }
+  handleChange(value) {
+    this.setState({ tab: value })
+  }
 
-<div>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth
-          >
-            <Tab label="Car One" />
-            <Tab label="Car Two" />
-            <Tab label="Car Three" />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
+  render() {
+    return (
+      <Paper style={{ width: 500 }}>
+        <Tabs
+          value={this.state.tab}
+          onChange={(e, value) => this.handleChange(value)}
+          fullWidth
+          indicatorColor="secondary"
+          textColor="secondary"
         >
-          <TabContainer dir={theme.direction}>Car One</TabContainer>
-          <TabContainer dir={theme.direction}>Car Two</TabContainer>
-          <TabContainer dir={theme.direction}>Car Three</TabContainer>
-        </SwipeableViews>
-      </div>
+          <Tab icon={<PhoneIcon />} label="RECENTS" />
+          <Tab icon={<FavoriteIcon />} label="FAVORITES" />
+          <Tab icon={<PersonPinIcon />} label="NEARBY" />
+        </Tabs>
+        { this.state.tab === 0 ? 'foo' : 'bar' }
+      </Paper>
+    )
+  }
+}
