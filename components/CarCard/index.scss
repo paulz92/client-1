@@ -14,15 +14,22 @@
   height: 200px;
 }
 
-.carChips {
-  margin: 5px;
+.carChipsRoot {
+  padding: 0px 5px !important;
 }
 
+.carChips + .carChips {
+  margin-left: 5px;
+}
 
+.carInfo + .carInfo {
+  margin-top: 10px;
+}
 
 .carLikeButton {
   width: 100%;
   background-color: #B71C1C !important;
   color: white !important;
   font-weight: bold !important;
+  margin-top: 5px !important;
 }

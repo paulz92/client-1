@@ -14,14 +14,22 @@ export const CarCard = (props) => {
           {`${props.carYear} ${props.carMake} ${props.carModel}`}
         </Typography>
         <Typography className={styles.carInfo} component="p">
+          {`Owned by: ${props.owner}`}
+        </Typography>
+        <Typography className={styles.carInfo} component="p">
           {props.carNote}
         </Typography>
       </CardContent>
-      <div>
+      <div className={styles.carChipsRoot}>
         {props.tags.map(tag => <Chip className={styles.carChips} label={tag}/>)}
       </div>
+      {/* add in code to make this price div null on cars page but active on marketplace page
       <div>
-        <Button variant="raised" className={styles.carLikeButton}>Like this car</Button>
+        {`Price: $${props.price}`} 
+      </div>
+      */}
+      <div>
+        <Button variant="raised" className={styles.carLikeButton}>{props.carAction}</Button>
       </div>
     </Card>
   )
