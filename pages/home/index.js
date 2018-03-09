@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { Button, CarCard } from '@/components'
+import { Button, CarCard, NewPostModal } from '@/components'
 import { Layout } from '@/containers'
 import { incrementCount, decrementCount } from '@/actions'
 import { withTranslate, withRedux, withMaterialUI } from '@/utils'
@@ -17,15 +17,28 @@ const mapDispatchToProps = dispatch => (
 @withRedux(mapStateToProps, mapDispatchToProps)
 @withTranslate(['home', 'common'])
 export default class Home extends Component {
-  render() {
-    const { t, incrementCount, decrementCount, count } = this.props
+  state = {
+    modalOpen: false,
+  };
 
+  handleModalOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ modalOpen: false });
+  };
+  
+  render() {
     return (
       <Layout>
         <div className={styles.root}>
           <h1>Cars</h1>
           <div className={styles.searchBar}>
             search bar will go here
+          </div>
+          <div>
+            <NewPostModal shouldModalBeOpen={this.state.modalOpen} openModal={this.handleModalOpen} closeModal={this.handleModalClose} />
           </div>
           <div className={styles.homeCarCardsRoot}>
             <CarCard 
