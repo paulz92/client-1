@@ -25,21 +25,21 @@ const HeaderButton = ({ to, label }) => (
 
 export const Header = () => (
   <AppBar className={styles.appBar} position="static">
-    <Toolbar className={styles.topToolBar}>
+    <div className={styles.topToolBar}>
       <HeaderButton to="/register" label="REGISTER" />
       <HeaderButton to="/login" label="LOGIN" />
-    </Toolbar>
-    <Toolbar className={styles.bottomToolBar}>
+    </div>
+    <div className={styles.bottomToolBar}>
       <HeaderLink to="/" label="CARS" />
       <HeaderLink to="/marketplace" label="MARKETPLACE" />
       <Typography className={styles.brand}>Torq</Typography>
       <HeaderLink to="/meetups" label="MEETUPS" />
       <HeaderLink to="/about" label="ABOUT" />
-    </Toolbar>
-    <Toolbar className={styles.mobileToolBar}>
+    </div>
+    <div className={styles.mobileToolBar}>
       <IconButton><MenuIcon/></IconButton>
       <Typography className={styles.brand}>Torq</Typography>
       <IconButton><MoreIcon/></IconButton>
-    </Toolbar>
+    </div>
   </AppBar>
 )
