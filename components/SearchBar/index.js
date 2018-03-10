@@ -1,4 +1,5 @@
 import { Button } from 'material-ui'
+import SearchIcon from 'material-ui-icons/Search'
 import styles from './index.scss'
 
 export const SearchBar = (props) => {
@@ -9,8 +10,9 @@ export const SearchBar = (props) => {
         autocomplete="off"
         autocorrect="off"
         type="text"
-        value="Search cars"/>
-      <Button variant="raised" className={styles.torqSearchButton}>Search</Button>
+        value={props.value}
+        onChange={props.typed} />
+        <SearchIcon className={styles.torqSearchIcon}/>
     </div>
   )
 }

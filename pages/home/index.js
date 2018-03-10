@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { CarCard, NewPostModal, SearchBar } from '@/components'
+import { CarCard, SearchBar } from '@/components'
 import { Layout } from '@/containers'
 
 import { incrementCount, decrementCount } from '@/actions'
@@ -18,26 +18,20 @@ const mapDispatchToProps = dispatch => (
 @withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
-    modalOpen: false,
-  };
+    searchVal: "Search cars"
+  }
 
-  handleModalOpen = () => {
-    this.setState({ modalOpen: true });
-  };
+  handleInputChange = (event) => {
+    event.preventDefault();
+    this.setState({ searchVal: event.target.value });
+  }
 
-  handleModalClose = () => {
-    this.setState({ modalOpen: false });
-  };
-  
   render() {
     return (
       <Layout>
         <div className={styles.root}>
           <h1>Cars</h1>
-          <SearchBar />
-          <div style={{marginTop: '24px'}}>
-            <NewPostModal shouldModalBeOpen={this.state.modalOpen} openModal={this.handleModalOpen} closeModal={this.handleModalClose} />
-          </div>
+          <SearchBar typed={this.handleInputChange} value={this.state.searchVal} />
           <div className={styles.homeCarCardsRoot}>
             <CarCard 
               carMake="Honda" 

@@ -1,7 +1,7 @@
 .torqSearch {
 	transition: all 300ms ease-in;
 	height: 35px;
-	width: 200px;
+	width: 250px;
 	background: #aaa;
 	border: none;
 	border-radius: 5px;
@@ -16,22 +16,24 @@
 }
 
 .torqSearch:focus {
-	width: 300px;
+	width: 350px;
   background: #fff;
   color: black;
   outline: none;
   border: 1px solid #B71C1C;
 }
 
-.torqSearchButton {
-  background-color: #B71C1C !important;
-  color: white !important;
-  font-weight: bold !important;
-  margin-left: 8px !important;
+.torqSearchIcon {
+  margin-left: 16px !important;
+}
+
+.torqSearchIcon:hover {
+  cursor: pointer;
 }
 
 .searchRoot {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 16px;
 }
