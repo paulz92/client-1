@@ -11,8 +11,12 @@ import {
 } from '@/utils'
 import styles from './index.scss'
 
+const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
+const KATEUPTON_AVATAR = 'https://pbs.twimg.com/profile_images/887828156886986752/F7XIdhSg_400x400.jpg'
+
 @withTranslate(['home', 'common'])
 export default class Login extends Component {
+
   state = {
     identifier: '',
     identifierIsEmail: false,
@@ -21,6 +25,7 @@ export default class Login extends Component {
     password: '',
     passwordIsValid: false,
     shouldHidePassword: true,
+    avatarUrl: PLACEHOLDER_AVATAR,
   }
 
   async checkIfIdentifierExists(s) {
@@ -30,12 +35,14 @@ export default class Login extends Component {
     return true
   }
 
+  componentDidMount() {
+  }
+
   handleIdentifierChange(e) {
     const { value } = e.target
     const isValidEmail = validateEmail(value)
     const isValidUserName = validateUsername(value)
 
-    this.refs.identifier.focus()
     this.setState({
       identifier: value,
       identifierSuccess: false,
@@ -43,6 +50,7 @@ export default class Login extends Component {
       identifierIsEmail: isValidEmail,
       password: '',
       passwordIsValid: false,
+      avatarUrl: PLACEHOLDER_AVATAR,
     })
   }
 
@@ -63,10 +71,11 @@ export default class Login extends Component {
     if (!identifierSuccess) {
       const doesExist = await this.checkIfIdentifierExists(identifier)
       this.setState({
-        identifierSuccess: doesExist
+        identifierSuccess: doesExist,
+        avatarUrl: KATEUPTON_AVATAR,
       })
 
-      return this.refs.password.focus()
+      return this.passwordField.focus()
     }
   }
 
@@ -76,19 +85,24 @@ export default class Login extends Component {
       identifierSuccess,
       identifierIsValid,
       identifierIsEmail,
+      shouldHidePassword,
+      avatarUrl,
       password,
     } = this.state
 
     return (
       <Layout>
         <div className={styles.root}>
-          <Typography variant="headline">
+          <Typography
+            className={styles.title}
+            variant="headline"
+          >
             Please Sign In
           </Typography>
           <Card className={styles.card}>
             <Avatar
               className={styles.avatar}
-              src="https://pbs.twimg.com/profile_images/887828156886986752/F7XIdhSg_400x400.jpg"
+              src={avatarUrl}
             />
             <form
               className={styles.form}
@@ -103,17 +117,21 @@ export default class Login extends Component {
                         : 'Username'
                     : 'Enter your username or email'
                 }
+                type="text"
+                autoComplete={false}
+                ref={textField => this.identifierField = textField}
                 onChange={e => this.handleIdentifierChange(e)}
                 value={identifier}
-                ref="identifier"
               />
               {identifierSuccess ?
                 <TextField
+                  type={shouldHidePassword ? 'password' : 'text'}
+                  autoComplete={false}
                   className={styles.field}
                   label={password.length ? 'Password' : 'Enter your password'}
+                  ref={textField => this.passwordField = textField}
                   onChange={e => this.handlePasswordChange(e)}
                   value={password}
-                  ref="password"
                 /> : null
               }
               <Button

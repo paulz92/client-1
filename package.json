@@ -28,6 +28,7 @@
     "pretty-next": "^0.0.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-dropzone": "^4.2.9",
     "react-i18next": "^7.4.0",
     "react-redux": "^5.0.7",
     "react-swipeable-views": "^0.12.13",

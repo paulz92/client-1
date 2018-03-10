@@ -5,6 +5,11 @@
   @include flex(column, center, center);
 }
 
+.title {
+  color: #777 !important;
+  margin-bottom: 10px !important;
+}
+
 .avatar {
   height: 115px !important;
   width: 115px !important;
@@ -32,4 +37,12 @@
 
 .button {
   width: 90% !important;
+}
+
+@media screen and (max-width: 650px) {
+  .root {
+    justify-content: flex-start !important;
+    margin-top: 50px;
+    width: 95vw !important;
+  }
 }
