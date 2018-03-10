@@ -1,4 +1,8 @@
-.root {
-    background: #9e0;
-    color: #fff;
-  }
+.profPageHead, .profPageTabs {
+  margin-top: 24px;
+  width: 60%;
+}
+
+.profPageHead {
+  flex-grow: 0 !important;
+}
