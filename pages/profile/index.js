@@ -23,20 +23,16 @@ export default class Profile extends Component {
   render() {
     return (
       <Layout>
-        
         <div className={styles.profPageHead}>
-          <div>
-             
-          </div>
           <ProfCard 
-              shouldModalBeOpen={this.state.modalOpen} 
-              openModal={this.handleModalOpen} 
-              closeModal={this.handleModalClose}
-              name="Test McTest"
-              city="Raleigh, NC"
-              bio="Hey, I'm a test user from a test city with a test car." />
+            shouldModalBeOpen={this.state.modalOpen} 
+            openModal={this.handleModalOpen} 
+            closeModal={this.handleModalClose}
+            name="Test McTest"
+            city="Raleigh, NC"
+            bio="Hey, I'm a test user from a test city with a test car." />
         </div>
-        <div>
+        <div className={styles.profPageTabs}>
         <ProfileTab />
         </div>
       </Layout>

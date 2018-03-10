@@ -4,3 +4,39 @@
   font-weight: bold !important;
   margin: 5px 0px !important;
 }
+
+.modalRoot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.getModalStyles {
+  background-color: white;
+  height: 85%;
+  width: 40%;
+  box-sizing: border-box;
+  padding: 16px 48px;
+}
+
+.modalTitle {
+  text-align: center !important;
+}
+
+.makeModelYearInput {
+  width: 30%;
+  margin-top: 16px !important;
+}
+
+.makeModelYearInput + .makeModelYearInput {
+  margin-left: 5%;
+}
+
+.postTitle {
+  width: 100%;
+  margin-top: 16px !important;
+}
+
+.postBody {
+  width: 100%;
+}
