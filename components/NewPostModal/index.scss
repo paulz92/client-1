@@ -1,4 +1,4 @@
-.createPostButton {
+.createPostButton, .addPostButton {
   background-color: #B71C1C !important;
   color: white !important;
   font-weight: bold !important;
@@ -39,4 +39,9 @@
 
 .postBody {
   width: 100%;
+}
+
+.addPostButtonRoot {
+  display: flex;
+  justify-content: center;
 }

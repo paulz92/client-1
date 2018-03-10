@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { CarCard, NewPostModal } from '@/components'
+import { CarCard, NewPostModal, SearchBar } from '@/components'
 import { Layout } from '@/containers'
 
 import { incrementCount, decrementCount } from '@/actions'
@@ -34,10 +34,8 @@ export default class Home extends Component {
       <Layout>
         <div className={styles.root}>
           <h1>Cars</h1>
-          <div className={styles.searchBar}>
-            search bar will go here
-          </div>
-          <div>
+          <SearchBar />
+          <div style={{marginTop: '24px'}}>
             <NewPostModal shouldModalBeOpen={this.state.modalOpen} openModal={this.handleModalOpen} closeModal={this.handleModalClose} />
           </div>
           <div className={styles.homeCarCardsRoot}>

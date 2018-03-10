@@ -42,6 +42,9 @@ export const NewPostModal = (props) => {
         </FormControl>
         <h4>TO DO: Add tags</h4>
         <h4>TO DO: Add photo import</h4>
+        <div className={styles.addPostButtonRoot}>
+          <Button variant="raised" className={styles.addPostButton}>Add post</Button>
+        </div>
       </div>
     </Modal>
     </div>
