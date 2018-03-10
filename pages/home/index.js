@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { Button, CarCard, NewPostModal } from '@/components'
+import { CarCard, NewPostModal } from '@/components'
 import { Layout } from '@/containers'
 
 import { incrementCount, decrementCount } from '@/actions'
@@ -55,7 +55,7 @@ export default class Home extends Component {
               carModel="Miata" 
               carYear="2018" 
               carNote="The tires are the things on your car that make contact with the road."
-              carPic="http://wpmedia.driving.ca/2017/11/chrome-image-389045.png?w=800&h=520&crop=1"
+              carPic="https://i.ytimg.com/vi/EivIdi3oVXc/maxresdefault.jpg"
               tags={["sporty", "quick"]}
               owner="Tester McTesterson"
               carAction="Like" />

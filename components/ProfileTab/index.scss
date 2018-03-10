@@ -1,24 +1,10 @@
-.profCardRoot {
-    display: flex;
-    width: 70%;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .userDetails {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-grow: 1;
-  }
-  
-  .profImage {
-   height: 200px;
-   width: 200px;
-  }
-  
-  .profInfo {
-    padding: 8px;
-  }
+.profileTabRoot {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.profTabCarCards {
+  display: flex;
+  justify-content: space-around;
+}
