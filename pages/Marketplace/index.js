@@ -3,7 +3,8 @@ import { Filter } from '@/components'
 
 export default () => (
   <Layout>
-    <h1>Marketplace</h1>
+    <br/>
     <Filter />
+    <h1>Car Page</h1>
   </Layout>
 )
