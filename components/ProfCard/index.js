@@ -17,7 +17,13 @@ export const ProfCard = (props) =>
         <Typography className={styles.profInfo} component="p">
           {props.bio}
         </Typography>
-        <NewPostModal openModal={props.openModal} shouldModalBeOpen={props.shouldModalBeOpen} closeModal={props.closeModal}/>
+        <NewPostModal 
+          openModal={props.openModal} 
+          shouldModalBeOpen={props.shouldModalBeOpen} 
+          closeModal={props.closeModal} 
+          changed={props.changed}
+          newPostInfo={props.newPostInfo}
+          tagAdd={props.tagAdd} />
       </CardContent>
     </div>
     <CardMedia className={styles.profImage} image="http://moziru.com/images/mystery-clipart-mystery-person-5.jpg" title={`image of ${props.name}`} />

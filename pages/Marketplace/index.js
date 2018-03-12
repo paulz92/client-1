@@ -12,8 +12,6 @@ export default class MarketPlace extends Component {
   }
 
   handleFormSelect = event => {
-    console.log(event.target.name);
-    console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value })
   }
 
