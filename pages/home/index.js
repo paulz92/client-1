@@ -29,6 +29,17 @@ export default class Home extends Component {
     this.setState({ searchVal: event.target.value });
   }
 
+  handleCarLike = (event) => {
+    event.preventDefault();
+    console.log('clicked to like car')
+  }
+
+  handleCarComment = (event) => {
+    event.preventDefault();
+    console.log('clicked to comment on car')
+  }
+
+
   render() {
     const { transition } = this
     return (
@@ -52,6 +63,8 @@ export default class Home extends Component {
             className={styles.stackGrid}
           >
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               className={styles.card}
               key={0}
               carMake="Honda" 
@@ -60,9 +73,10 @@ export default class Home extends Component {
               carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
               carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
               tags={["sedan", "family"]}
-              owner="Test McTest"
-              carAction="Like" />
+              owner="Test McTest" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={1}
               carMake="Mazda" 
               carModel="Miata" 
@@ -70,9 +84,10 @@ export default class Home extends Component {
               carNote="The tires are the things on your car that make contact with the road."
               carPic="https://i.ytimg.com/vi/EivIdi3oVXc/maxresdefault.jpg"
               tags={["sporty", "quick"]}
-              owner="Tester McTesterson"
-              carAction="Like" />
+              owner="Tester McTesterson" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={2}
               carMake="Ford" 
               carModel="Excursion" 
@@ -80,9 +95,10 @@ export default class Home extends Component {
               carNote="I love to pay lots for my gas fill ups."
               carPic="https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg"
               tags={["big", "ford"]}
-              owner="Testy MacTestytesterson"
-              carAction="Like" />
-                          <CarCard
+              owner="Testy MacTestytesterson" />
+            <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               className={styles.card}
               key={3}
               carMake="Honda" 
@@ -91,9 +107,10 @@ export default class Home extends Component {
               carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
               carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
               tags={["sedan", "family"]}
-              owner="Test McTest"
-              carAction="Like" />
+              owner="Test McTest" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={4}
               carMake="Mazda" 
               carModel="Miata" 
@@ -101,9 +118,10 @@ export default class Home extends Component {
               carNote="The tires are the things on your car that make contact with the road."
               carPic="https://i.ytimg.com/vi/EivIdi3oVXc/maxresdefault.jpg"
               tags={["sporty", "quick"]}
-              owner="Tester McTesterson"
-              carAction="Like" />
+              owner="Tester McTesterson" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={5}
               carMake="Ford" 
               carModel="Excursion" 
@@ -111,9 +129,10 @@ export default class Home extends Component {
               carNote="I love to pay lots for my gas fill ups."
               carPic="https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg"
               tags={["big", "ford"]}
-              owner="Testy MacTestytesterson"
-              carAction="Like" />
-                          <CarCard
+              owner="Testy MacTestytesterson" />
+            <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               className={styles.card}
               key={6}
               carMake="Honda" 
@@ -122,9 +141,10 @@ export default class Home extends Component {
               carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
               carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
               tags={["sedan", "family"]}
-              owner="Test McTest"
-              carAction="Like" />
+              owner="Test McTest" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={7}
               carMake="Mazda" 
               carModel="Miata" 
@@ -132,9 +152,10 @@ export default class Home extends Component {
               carNote="The tires are the things on your car that make contact with the road."
               carPic="https://i.ytimg.com/vi/EivIdi3oVXc/maxresdefault.jpg"
               tags={["sporty", "quick"]}
-              owner="Tester McTesterson"
-              carAction="Like" />
+              owner="Tester McTesterson" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={8}
               carMake="Ford" 
               carModel="Excursion" 
@@ -142,9 +163,10 @@ export default class Home extends Component {
               carNote="I love to pay lots for my gas fill ups."
               carPic="https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg"
               tags={["big", "ford"]}
-              owner="Testy MacTestytesterson"
-              carAction="Like" />
-                          <CarCard
+              owner="Testy MacTestytesterson" />
+            <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               className={styles.card}
               key={9}
               carMake="Honda" 
@@ -153,9 +175,10 @@ export default class Home extends Component {
               carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
               carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
               tags={["sedan", "family"]}
-              owner="Test McTest"
-              carAction="Like" />
+              owner="Test McTest" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={10}
               carMake="Mazda" 
               carModel="Miata" 
@@ -163,9 +186,10 @@ export default class Home extends Component {
               carNote="The tires are the things on your car that make contact with the road."
               carPic="https://i.ytimg.com/vi/EivIdi3oVXc/maxresdefault.jpg"
               tags={["sporty", "quick"]}
-              owner="Tester McTesterson"
-              carAction="Like" />
+              owner="Tester McTesterson" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={11}
               carMake="Ford" 
               carModel="Excursion" 
@@ -173,9 +197,10 @@ export default class Home extends Component {
               carNote="I love to pay lots for my gas fill ups."
               carPic="https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg"
               tags={["big", "ford"]}
-              owner="Testy MacTestytesterson"
-              carAction="Like" />
-                          <CarCard
+              owner="Testy MacTestytesterson" />
+            <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               className={styles.card}
               key={12}
               carMake="Honda" 
@@ -184,9 +209,10 @@ export default class Home extends Component {
               carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
               carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
               tags={["sedan", "family"]}
-              owner="Test McTest"
-              carAction="Like" />
+              owner="Test McTest" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={13}
               carMake="Mazda" 
               carModel="Miata" 
@@ -194,9 +220,10 @@ export default class Home extends Component {
               carNote="The tires are the things on your car that make contact with the road."
               carPic="https://i.ytimg.com/vi/EivIdi3oVXc/maxresdefault.jpg"
               tags={["sporty", "quick"]}
-              owner="Tester McTesterson"
-              carAction="Like" />
+              owner="Tester McTesterson" />
             <CarCard
+              handleLike={this.handleCarLike}
+              handleComment={this.handleCarComment}
               key={14}
               carMake="Ford" 
               carModel="Excursion" 
@@ -204,12 +231,10 @@ export default class Home extends Component {
               carNote="I love to pay lots for my gas fill ups."
               carPic="https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg"
               tags={["big", "ford"]}
-              owner="Testy MacTestytesterson"
-              carAction="Like" />
+              owner="Testy MacTestytesterson" />
           </StackGrid>
         </div>
       </Layout>
     )
   }
 }
-
