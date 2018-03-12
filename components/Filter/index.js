@@ -21,90 +21,68 @@ import { handle } from 'i18next-express-middleware';
 
 export const Filter = (props) => {
 
-  const model = [
-    'Honda',
-    'BMW',
-    'Jeep',
-  ]
+  const make = ['Alfa Romeo', 'Alpina', 'Aston Martin', 'Audi', 'Bentley', 'BMW', 'Citroen', 'Dacia', 'DS', 'Ferrari', 'Fiat', 'Ford', 'Honda', 'Hyundai', 'Infinity',
+    'Jaguar', 'Jeep', 'Kia', 'Lamborghini', 'Land Rover', 'Lexus', 'Lotus', 'Maserati', 'Mazda', 'McLaren', 'Mercedes', 'MG', 'Mini', 'Mitsubishi', 'Nissan', 'Peugeot',
+    'Porsche', 'Renault', 'Rolls-Royce', 'Seat', 'Skoda', 'Smart', 'SsangYong', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Vauxhall', 'Volkswagen', 'Volvo'];
 
-  const make = [
+  const model = [
     'M3',
     'Civic',
     'Jeep',
   ]
 
-  const year = [
-    '1995',
-    '1996',
-    '1997',
-    '2015',
-    '2016',
-    '2017',
-    '2018',
-  ]
+  const year = [2018]
+
+  for (let i = 0; i < 118; i++) {
+    year.push(year[i] - 1);
+  }
 
   return (
     <div >
-      <ExpansionPanel className={styles.root} defaultExpanded>
+      <ExpansionPanel className={styles.root}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={styles.column}>
-            <Typography className={styles.font} >Filter</Typography>
+            <Typography className={styles.font}>Filter</Typography>
           </div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={styles.options} >
-        <FormControl className={styles.dropDownOpt}>
-          <InputLabel  htmlFor="select-multiple">Model</InputLabel>
-          <Select
-          value={''}
-            input={<Input id="select-multiple" />}
-          >
-            {model.map(name => (
-              <MenuItem
-                key={name}
-                value={name}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl className={styles.dropDownOpt}>
-          <InputLabel htmlFor="select-multiple">Make</InputLabel>
-          <Select
-          value={''}
-            input={<Input id="select-multiple" />}
-          >
-            {make.map(car => (
-              <MenuItem
-                key={car}
-                value={car}
-              >
-                {car}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl className={styles.dropDownOpt}>
-          <InputLabel htmlFor="select-multiple">Years</InputLabel>
-          <Select
-          value={''}
-            input={<Input id="select-multiple" />}
-          >
-            {year.map(years => (
-              <MenuItem
-                key={years}
-                value={years}
-              >
-                {years}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button color="secondary">
+        <ExpansionPanelDetails className={styles.options}>
+          <FormControl className={styles.dropDownOpt}>
+            <InputLabel  htmlFor="car-make">Make</InputLabel>
+            <Select
+              value={props.makeVal}
+              onChange={props.selected}
+              input={<Input id="car-make" name="make" />}>
+              {make.map(name => (
+                <MenuItem key={name} value={name}>{name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={styles.dropDownOpt}>
+            <InputLabel htmlFor="car-model">Model</InputLabel>
+            <Select
+              value={props.modelVal}
+              onChange={props.selected}
+              input={<Input id="car-model" name="model" />}>
+              {model.map(car => (
+                <MenuItem key={car} value={car}>{car}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={styles.dropDownOpt}>
+            <InputLabel htmlFor="car-year">Year</InputLabel>
+            <Select
+              value={props.yearVal}
+              onChange={props.selected}
+              input={<Input id="car-year" name="year" />}>
+              {year.map(year => (
+                <MenuItem key={year} value={year}>{year}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button color="secondary">
             Search
-        </Button> 
+          </Button> 
         </ExpansionPanelDetails>
-       
       </ExpansionPanel>
     </div>
   )
