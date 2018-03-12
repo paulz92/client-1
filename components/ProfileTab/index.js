@@ -60,12 +60,13 @@ export class ProfileTab extends Component {
           centered
           indicatorColor="#ba000d"
           textColor="#ba000d"
+          className={styles.profileTabs}
         >
-          <Tab icon={<DirectionsCar />} label="MY CAR" />
+          <Tab icon={<DirectionsCar />} label="MY CARS" />
           <Tab icon={<FavoriteIcon />} label="FAVORITE CARS" />
-          <Tab icon={<PersonPinIcon />} label="CARS OF INTEREST" />
+          <Tab icon={<PersonPinIcon />} label="MEETUPS" />
         </Tabs>
-        { this.state.tab === 0 ?  myCar : favCars  }
+        { this.state.tab === 0 ?  myCar : this.state.tab === 1 ? favCars : this.state.tab === 2 ? 'meetups' : null  }
       </Paper>
     )
   }

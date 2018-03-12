@@ -17,6 +17,7 @@
   width: 40%;
   box-sizing: border-box;
   padding: 16px 48px;
+  overflow: auto;
 }
 
 .modalTitle {
@@ -44,4 +45,22 @@
 .addPostButtonRoot {
   display: flex;
   justify-content: center;
+}
+
+.tagsInput {
+  width: 20%;
+  margin-top: 8px !important;
+  margin-bottom: 3px !important;
+}
+
+.plusIcon {
+  margin-top: 16px !important;
+}
+
+.plusIcon:hover {
+  cursor: pointer;
+}
+
+.postChips {
+  margin: 5px 5px 0px 0px;
 }
