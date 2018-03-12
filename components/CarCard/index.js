@@ -1,8 +1,9 @@
 import Card, { CardContent, CardMedia, CardHeader } from 'material-ui/Card'
-import Avatar from 'material-ui/Avatar'
-import Typography from 'material-ui/Typography'
-import Chip from 'material-ui/Chip'
-import Button from 'material-ui/Button'
+import { Avatar, Typography, Chip, Button } from 'material-ui'
+
+import Comment from 'material-ui-icons/Comment'
+
+import ThumbsUp from 'material-ui-icons/ThumbUp'
 
 import styles from './index.scss'
 
@@ -35,9 +36,9 @@ export const CarCard = (props) => {
         {`Price: $${props.price}`} 
       </div>
       */}
-      <div className={styles.carButtonRoot}>
-        <Button variant="raised" className={styles.carLikeButton}>{props.carAction}</Button>
-        <Button variant="raised" className={styles.carLikeButton}>Comment</Button>
+      <div className={styles.carActionsRoot}>
+        <ThumbsUp className={styles.carAction} onClick={props.handleLike} />
+        <Comment className={styles.carAction} onClick={props.handleComment} />
       </div>
     </Card>
   )

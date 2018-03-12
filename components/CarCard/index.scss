@@ -23,21 +23,31 @@
 
 .carChips + .carChips {
   margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 .carInfo + .carInfo {
   margin-top: 10px;
 }
 
-.carButtonRoot {
+.carActionsRoot {
   display: flex;
   justify-content: space-around;
+  margin-top: 11px;
+  border-top: 1.5px solid #B71C1C;
 }
 
-.carLikeButton {
-  width: 45%;
-  background-color: #B71C1C !important;
-  color: white !important;
-  font-weight: bold !important;
-  margin: 5px 0px !important;
+.carAction {
+  padding: 16px 32px !important;
+  margin: 4px 0px !important;
+  background-color: white;
+}
+
+.carAction:hover {
+  cursor: pointer;
+  filter: invert(13%);
+}
+
+.carAction:active {
+  background-color: #f05545;
 }
