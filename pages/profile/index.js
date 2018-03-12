@@ -33,7 +33,7 @@ export default class Profile extends Component {
             bio="Hey, I'm a test user from a test city with a test car." />
         </div>
         <div className={styles.profPageTabs}>
-        <ProfileTab />
+          <ProfileTab />
         </div>
       </Layout>
     )
