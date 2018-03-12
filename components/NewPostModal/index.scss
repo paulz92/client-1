@@ -61,3 +61,23 @@
 .postChips {
   margin: 5px 5px 0px 0px;
 }
+.dropzoneRoot {
+  margin: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.dropzone {
+  cursor: pointer;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

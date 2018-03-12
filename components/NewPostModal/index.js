@@ -1,5 +1,6 @@
 import { FormControl, FormHelperText, Input, InputLabel, Button, Modal, Typography, TextField, Chip } from 'material-ui';
 import PlusIcon from 'material-ui-icons/Add'
+import Dropzone from 'react-dropzone'
 
 import styles from './index.scss'
 
@@ -53,15 +54,25 @@ export const NewPostModal = (props) => {
           </Button>
         </form>
         <div>
-          {props.newPostInfo.tags.map(tag => 
-            <Chip 
+          {props.newPostInfo.tags.map((tag, index) => 
+            <Chip
+              key={index}
               className={styles.postChips} 
               label={tag}
-              onDelete={(event) => props.tagDelete(event, tag)} 
-              key={tag} />
+              onDelete={(event) => props.tagDelete(event, index)} />
           )}
         </div>
-        <h4>TO DO: Add photo import</h4>
+        <div className={styles.dropzoneRoot}>
+          <Dropzone
+            className={styles.dropzone}
+            style={{
+              background: `url(${props.uploadedAvatarURL || '/public/images/user-placeholder.svg'})`
+            }}
+            accept="image/jpeg, image/png"
+            onDrop={accepted => props.acceptedDrop(accepted)}>
+            {props.uploadedAvatarURL.length ? null : 'Drop in an image'}
+          </Dropzone>
+        </div>
         <div className={styles.addPostButtonRoot}>
           <Button variant="raised" className={styles.addPostButton}>Add post</Button>
         </div>

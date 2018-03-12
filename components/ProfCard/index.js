@@ -24,7 +24,9 @@ export const ProfCard = (props) =>
           changed={props.changed}
           newPostInfo={props.newPostInfo}
           tagAdd={props.tagAdd}
-          tagDelete={props.tagDelete} />
+          tagDelete={props.tagDelete}
+          acceptedDrop={props.acceptedDrop}
+          uploadedAvatarURL={props.uploadedAvatarURL} />
       </CardContent>
     </div>
     <CardMedia className={styles.profImage} image="http://moziru.com/images/mystery-clipart-mystery-person-5.jpg" title={`image of ${props.name}`} />
