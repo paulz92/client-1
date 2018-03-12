@@ -18,7 +18,8 @@ export default class Profile extends Component {
       body: '',
       currentTag: '',
       tags: []
-    }
+    },
+    uploadedAvatarURL: ''
   }
 
   handleModalOpen = () => {
@@ -50,17 +51,21 @@ export default class Profile extends Component {
     }
   }
 
-  handleTagDelete = (event, val) => {
+  handleTagDelete = (event, index) => {
     event.preventDefault()
     const updatedTags = [...this.state.newPostInfo.tags]
-    const deleteIndex = updatedTags.indexOf(val)
-    updatedTags.splice(deleteIndex, 1)
+    // const deleteIndex = updatedTags.indexOf(val)
+    updatedTags.splice(index, 1)
     this.setState({
       newPostInfo: {
         ...this.state.newPostInfo,
         tags: updatedTags
       }
     })
+  }
+
+  handlePhotoDrop = (accepted) => {
+    this.setState({ uploadedAvatarURL: accepted.shift().preview })
   }
 
   render() {
@@ -75,6 +80,8 @@ export default class Profile extends Component {
             changed={this.handleInputChange}
             tagAdd={this.handleNewTagAdded}
             tagDelete={this.handleTagDelete}
+            uploadedAvatarURL={this.state.uploadedAvatarURL}
+            acceptedDrop={this.handlePhotoDrop}
             name="Test McTest"
             city="Raleigh, NC"
             bio="Hey, I'm a test user from a test city with a test car." />
