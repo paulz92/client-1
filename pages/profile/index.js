@@ -22,29 +22,45 @@ export default class Profile extends Component {
   }
 
   handleModalOpen = () => {
-    this.setState({ modalOpen: true });
+    this.setState({ modalOpen: true })
   }
 
   handleModalClose = () => {
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false })
   }
 
   handleInputChange = event => {
-    const newPostState = { ...this.state.newPostInfo };
-    const keyToUpdate = event.target.name;
-    newPostState[keyToUpdate] = event.target.value;
+    const newPostState = { ...this.state.newPostInfo }
+    const keyToUpdate = event.target.name
+    newPostState[keyToUpdate] = event.target.value
     this.setState({ newPostInfo: newPostState })
   }
 
   handleNewTagAdded = event => {
-    const copyPostState = {...this.state.newPostInfo};
-    copyPostState.tags.push(copyPostState.currentTag);
-    this.setState({ 
+    event.preventDefault()
+      if (this.state.newPostInfo.currentTag.length >= 1) {
+      const copyPostState = {...this.state.newPostInfo}
+      copyPostState.tags.push(copyPostState.currentTag)
+      this.setState({ 
+        newPostInfo: {
+          ...copyPostState,
+          currentTag: ''
+        }
+      })
+    }
+  }
+
+  handleTagDelete = (event, val) => {
+    event.preventDefault()
+    const updatedTags = [...this.state.newPostInfo.tags]
+    const deleteIndex = updatedTags.indexOf(val)
+    updatedTags.splice(deleteIndex, 1)
+    this.setState({
       newPostInfo: {
-        ...copyPostState,
-        currentTag: ''
+        ...this.state.newPostInfo,
+        tags: updatedTags
       }
-    });
+    })
   }
 
   render() {
@@ -58,6 +74,7 @@ export default class Profile extends Component {
             newPostInfo={this.state.newPostInfo}
             changed={this.handleInputChange}
             tagAdd={this.handleNewTagAdded}
+            tagDelete={this.handleTagDelete}
             name="Test McTest"
             city="Raleigh, NC"
             bio="Hey, I'm a test user from a test city with a test car." />

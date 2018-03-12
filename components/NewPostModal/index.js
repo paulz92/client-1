@@ -43,12 +43,24 @@ export const NewPostModal = (props) => {
             rows="10"
             margin="normal" />
         </FormControl>
-        <FormControl className={styles.tagsInput} onChange={props.changed}>
-          <InputLabel htmlFor="add-tags">Add Tags</InputLabel>
-          <Input name="currentTag" id="add-tags" value={props.newPostInfo.currentTag}/>
-        </FormControl>
-        <PlusIcon className={styles.plusIcon} onClick={props.tagAdd} />
-        <div>{props.newPostInfo.tags.map(tag => <Chip className={styles.postChips} label={tag} key={tag}/>)}</div>
+        <form onSubmit={props.tagAdd}>
+          <FormControl className={styles.tagsInput} onChange={props.changed}>
+            <InputLabel htmlFor="add-tags">Add a Tag</InputLabel>
+            <Input name="currentTag" id="add-tags" value={props.newPostInfo.currentTag}/>
+          </FormControl>
+          <Button type="submit" className={styles.addTagButton}>
+            <PlusIcon className={styles.plusIcon} onClick={props.tagAdd} />
+          </Button>
+        </form>
+        <div>
+          {props.newPostInfo.tags.map(tag => 
+            <Chip 
+              className={styles.postChips} 
+              label={tag}
+              onDelete={(event) => props.tagDelete(event, tag)} 
+              key={tag} />
+          )}
+        </div>
         <h4>TO DO: Add photo import</h4>
         <div className={styles.addPostButtonRoot}>
           <Button variant="raised" className={styles.addPostButton}>Add post</Button>
