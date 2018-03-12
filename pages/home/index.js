@@ -44,6 +44,7 @@ export default class Home extends Component {
     const { transition } = this
     return (
       <Layout>
+<<<<<<< Updated upstream
         <div className={styles.root}>
           <h1>Cars</h1>
           <SearchBar typed={this.handleInputChange} value={this.state.searchVal} />
@@ -234,6 +235,26 @@ export default class Home extends Component {
               owner="Testy MacTestytesterson" />
           </StackGrid>
         </div>
+=======
+        <Root>
+          <h1>{t('count', { count: count.count })}</h1>
+          <ButtonContainer>
+            <Button
+              onClick={() => incrementCount()}
+              variant="raised"
+            >
+              {t`increment`}
+            </Button>
+            <Button
+              onClick={() => decrementCount()}
+              variant="raised"
+            >
+              {t`decrement`}
+            </Button>
+          </ButtonContainer>
+          <Filter />
+        </Root>
+>>>>>>> Stashed changes
       </Layout>
     )
   }
