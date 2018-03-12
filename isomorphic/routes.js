@@ -7,5 +7,6 @@ routes
   .add('Marketplace', '/marketplace')
   .add('Profile', '/profile')
   .add('Register', '/register')
+  .add('About', '/about')
 
 module.exports = routes
