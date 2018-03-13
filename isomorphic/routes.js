@@ -8,5 +8,6 @@ routes
   .add('Profile', '/profile')
   .add('Register', '/register')
   .add('About', '/about')
+  .add('Meetups', '/meetups')
 
 module.exports = routes
