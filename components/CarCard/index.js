@@ -11,6 +11,7 @@ export const CarCard = (props) => {
   return (
     <Card className={styles.carCardRoot}>
       <CardHeader
+        classes={{ title: styles.font + " " + styles.fontName, subheader: styles.font }}
         avatar={
           <Avatar aria-label="profpic" className={styles.avatarPic}>
             R
@@ -21,10 +22,10 @@ export const CarCard = (props) => {
       />
       <CardMedia className={styles.carPic} image={`${props.carPic}`} title={`image of ${props.carMake} ${props.carModel}`} />
       <CardContent className={styles.carCardContent}>
-        <Typography className={styles.carInfo} variant="headline" >
+        <Typography className={styles.carInfo + " " + styles.font + " " + styles.fontCarName} variant="headline" >
           {`${props.carYear} ${props.carMake} ${props.carModel}`}
         </Typography>
-        <Typography className={styles.carInfo} component="p">
+        <Typography className={styles.carInfo + " " + styles.font} component="p">
           {props.carNote}
         </Typography>
       </CardContent>

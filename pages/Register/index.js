@@ -11,6 +11,7 @@ import {
 } from 'material-ui'
 import Dropzone from 'react-dropzone'
 
+import { Title } from '@/components'
 import { Layout } from '@/containers'
 import {
   validateEmail,
@@ -216,6 +217,7 @@ export default class Register extends Component {
 
     return (
       <Layout>
+        <Title title="Register" />
         <div className={styles.root}>
           <Stepper
             className={styles.stepper}

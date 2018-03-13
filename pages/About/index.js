@@ -7,7 +7,7 @@ import Avatar from 'material-ui/Avatar'
 
 import { Layout } from '@/containers'
 import styles from './index.scss'
-import { AboutPage } from '@/components';
+import { AboutPage, Title } from '@/components';
 
 const CHARLES_IMG = '/public/images/cuteCharles.png'
 const PAUL_IMG = '/public/images/paul-z2.jpeg'
@@ -16,7 +16,8 @@ const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
 export default () => (
   <Layout>
     <div >
-    <h1 className={styles.title}>Our Team</h1>
+    <Title title="About Torq" />
+    <Title title="Our Team" />
     <div className={styles.root}>
     {/* card one */}
       <Card className={styles.cardRoot}>
