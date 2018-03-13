@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
 
-import { CarCard, SearchBar } from '@/components'
+import { CarCard, SearchBar, Title } from '@/components'
 import { Layout } from '@/containers'
 
 import { incrementCount, decrementCount } from '@/actions'
@@ -45,7 +45,7 @@ export default class Home extends Component {
     return (
       <Layout>
         <div className={styles.root}>
-          <h1>Cars</h1>
+          <Title title="Cars" />
           <SearchBar typed={this.handleInputChange} value={this.state.searchVal} />
           <StackGrid
             monitorImagesLoaded

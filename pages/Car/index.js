@@ -1,7 +1,8 @@
 import { Layout } from '@/containers'
+import { Title } from '@/components'
 
 export default () => (
   <Layout>
-    <h1>Car Page</h1>
+    <Title title="Car Page" />
   </Layout>
 )

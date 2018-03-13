@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Layout } from '@/containers'
-import { Filter } from '@/components'
+import { Filter, Title } from '@/components'
 
 import styles from './index.scss'
 
@@ -18,9 +18,7 @@ export default class MarketPlace extends Component {
   render() {
     return (
       <Layout>
-        <div className={styles.pageTitle}>
-          <h1>Marketplace</h1>
-        </div>
+        <Title title="Marketplace" />
         <div className={styles.pageFilter}>
           <Filter 
             selected={this.handleFormSelect} 
