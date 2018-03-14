@@ -1,8 +1,13 @@
 .carCardRoot {
-  width: 300px !important;
+  width: 270px !important;
   display: flex;
   flex-direction: column;
   font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  border-radius: 25px !important;
+}
+
+.carCardRoot + .carCardRoot {
+  margin-left: 30px;
 }
 
 .font {
@@ -52,9 +57,10 @@
 }
 
 .carAction {
-  padding: 16px 32px !important;
+  padding: 12px 32px !important;
   margin: 4px 0px !important;
   background-color: white;
+  border-radius: 15px !important;
 }
 
 .carAction:hover {

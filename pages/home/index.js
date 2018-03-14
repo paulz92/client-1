@@ -51,8 +51,8 @@ export default class Home extends Component {
             monitorImagesLoaded
             columnWidth={300}
             duration={600}
-            gutterWidth={15}
-            gutterHeight={15}
+            gutterWidth={30}
+            gutterHeight={30}
             easing={easings.cubicOut}
             appearDelay={60}
             appear={transition.appear}
