@@ -5,26 +5,16 @@ import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
 import styles from './index.scss'
 
-// const styles = theme => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   heading: {
-//     fontSize: theme.typography.pxToRem(15),
-//     fontWeight: theme.typography.fontWeightRegular,
-//   },
-// });
-
-export const AboutPage = (props) => {
+export const AboutTorq = (props) => {
   return (
     <ExpansionPanel className={styles.rootPanel}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography className={styles.titleRoot}>
-          <Title title="About Torq" />
+        <Typography className={styles.fontTitle}>
+          About Torq
         </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography>
+        <Typography className={styles.font}>
           Torq was created as an application for car enthusiasts who have a passion for automobiles 
           and want to connect with other local likeminded people who share the same interest. Torq not
           your average car enthusiast website it's a also social media platform for posting and commenting 

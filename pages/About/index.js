@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 import { Layout } from '@/containers'
 import styles from './index.scss'
-import { AboutPage, Title, AboutMe } from '@/components';
+import { AboutTorq, Title, AboutMe } from '@/components'
 
 const developers = [
   {
@@ -29,19 +29,19 @@ const developers = [
     bio: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.",
     pic: "/public/images/user-placeholder.svg"
   }
-];
+]
 
 export default () => (
   <Layout>
-    <div>
+    <div className={styles.root}>
       <div className={styles.aboutTorqRoot}>
-        <AboutPage />
+        <AboutTorq />
       </div>
       <Title title="Our Team" />
       <div className={styles.aboutUsRoot}>
-        {developers.map(developer => {
+        {developers.map((developer, index) => {
           return (
-            <AboutMe devName={developer.name} devRole={developer.role} devBio={developer.bio} devPic={developer.pic} />
+            <AboutMe key={index} devName={developer.name} devRole={developer.role} devBio={developer.bio} devPic={developer.pic} />
           )
         })}
       </div>

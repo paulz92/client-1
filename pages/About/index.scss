@@ -1,3 +1,10 @@
+@import 'styles/mixins';
+
+.root {
+	@include flex(column, center, center);
+}
+
+
 .aboutUsRoot {
 	display: flex;
 	align-items: center;
