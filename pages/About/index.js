@@ -33,10 +33,12 @@ const developers = [
 
 export default () => (
   <Layout>
-    <div >
-      <Title title="About Torq" />
+    <div>
+      <div className={styles.aboutTorqRoot}>
+        <AboutPage />
+      </div>
       <Title title="Our Team" />
-      <div className={styles.root}>
+      <div className={styles.aboutUsRoot}>
         {developers.map(developer => {
           return (
             <AboutMe devName={developer.name} devRole={developer.role} devBio={developer.bio} devPic={developer.pic} />
