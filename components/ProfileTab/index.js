@@ -19,18 +19,20 @@ export class ProfileTab extends Component {
 
   render() {
     const myCar = 
-      <CarCard
-        carMake="Honda" 
-        carModel="Accord" 
-        carYear="2010" 
-        carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
-        carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
-        tags={["sedan", "family"]}
-        owner="Test McTest"
-        carAction="Like" />;
+      <div className={styles.profTabContent}>
+        <CarCard
+          carMake="Honda" 
+          carModel="Accord" 
+          carYear="2010" 
+          carNote="Hondas are built to last. Not the flashiest cars in the world, but absolutely a great daily driver."
+          carPic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCLK_6CUznbfVQBejZ-_ZnoTS1JcQR1C_tj-W4xPGIf3raif_9"
+          tags={["sedan", "family"]}
+          owner="Test McTest"
+          carAction="Like" />
+      </div>;
 
     const favCars = 
-      <div  className={styles.profTabCarCards}>
+      <div className={styles.profTabContent}>
         <CarCard 
           carMake="Mazda" 
           carModel="Miata" 
@@ -66,7 +68,7 @@ export class ProfileTab extends Component {
           <Tab icon={<FavoriteIcon />} label="FAVORITE CARS" />
           <Tab icon={<PersonPinIcon />} label="MEETUPS" />
         </Tabs>
-        { this.state.tab === 0 ?  myCar : this.state.tab === 1 ? favCars : this.state.tab === 2 ? 'meetups' : null  }
+        { this.state.tab === 0 ?  myCar : this.state.tab === 1 ? favCars : this.state.tab === 2 ? <div className={styles.profTabContent}>meetups</div> : null  }
       </Paper>
     )
   }
