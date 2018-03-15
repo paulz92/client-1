@@ -1,0 +1,67 @@
+.AddButton{
+    display: flex;
+    font-weight: 20px;
+}
+.AddBntFont{
+    margin-right: 15px;
+}
+
+.button{
+    margin: 20px;
+}
+
+@import 'styles/mixins';
+@import 'styles/vars';
+
+.root {
+  @include flex(column, center);
+  width: 100%;
+}
+
+.dropzone {
+  cursor: pointer;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  align-self: center;
+  text-align: center;
+  @include flex(column, center, center)
+}
+
+.stepContent div[class*="MuiCollapse-wrapperInner"] {
+  width: 350px;
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stepperButtons {
+  margin: 5px 0 !important;
+}
+
+.stepperButton:nth-of-type(2) {
+  margin-left: 10px !important;
+}
+
+.field {
+  width: 350px !important;
+  margin-bottom: 20px !important; 
+}
+
+@media screen and (max-width: 600px) {
+
+  .stepper {
+    width: 87%;
+  }
+
+  .stepContent div[class*="MuiCollapse-wrapperInner"] {
+    width: 100% !important;
+  }
+
+  .field {
+    width: 95% !important;
+  }
+}
