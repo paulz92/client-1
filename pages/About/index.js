@@ -2,34 +2,7 @@ import React from 'react'
 
 import { Layout } from '@/containers'
 import styles from './index.scss'
-import { AboutTorq, Title, AboutMe } from '@/components'
-
-const developers = [
-  {
-    name: "Charles Kenney",
-    role: "Backend Developer",
-    bio: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.",
-    pic: "/public/images/cuteCharles.png"
-  },
-  {
-    name: "Paul Zavattieri",
-    role: "Frontend Developer",
-    bio: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.",
-    pic: "/public/images/paul-z2.jpeg"
-  },
-  {
-    name: "Emmanuel M.R.",
-    role: "Frontend Developer",
-    bio: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.",
-    pic: "/public/images/eman.jpg"
-  },
-  {
-    name: "Jamal Patterson",
-    role: "Frontend Developer",
-    bio: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.",
-    pic: "/public/images/user-placeholder.svg"
-  }
-]
+import { AboutTorq } from '@/components'
 
 export default () => (
   <Layout>
