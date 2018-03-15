@@ -37,14 +37,6 @@ export default () => (
       <div className={styles.aboutTorqRoot}>
         <AboutTorq />
       </div>
-      <Title title="Our Team" />
-      <div className={styles.aboutUsRoot}>
-        {developers.map((developer, index) => {
-          return (
-            <AboutMe key={index} devName={developer.name} devRole={developer.role} devBio={developer.bio} devPic={developer.pic} />
-          )
-        })}
-      </div>
     </div>
   </Layout>
 )
