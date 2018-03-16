@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
+import SearchIcon from 'material-ui-icons/Search'
 
 import { CarCard, SearchBar, Title } from '@/components'
 import { Layout } from '@/containers'
@@ -46,7 +47,10 @@ export default class Home extends Component {
       <Layout>
         <div className={styles.root}>
           <Title title="Cars" />
-          <SearchBar typed={this.handleInputChange} value={this.state.searchVal} />
+          <div className={styles.searchRoot}>
+            <SearchBar typed={this.handleInputChange} value={this.state.searchVal} />
+            <SearchIcon className={styles.torqSearchIcon}/>
+          </div>
           <StackGrid
             monitorImagesLoaded
             columnWidth={300}
