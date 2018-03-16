@@ -1,3 +1,10 @@
 .pageFilter {
   width: 60%; 
 }
+
+.stackGrid {
+  width: 100% !important;
+  display: flex;
+  flex-direction: row;
+  margin-top: 32px;
+}

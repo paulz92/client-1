@@ -8,6 +8,19 @@ import ThumbsUp from 'material-ui-icons/ThumbUp'
 import styles from './index.scss'
 
 export const CarCard = (props) => {
+  const carActions = (
+    <div>
+      <ThumbsUp className={styles.carAction} onClick={props.handleLike} />
+      <Comment className={styles.carAction} onClick={props.handleComment} />
+    </div>
+  )
+
+  const price = (
+    <div className={styles.carPrice}>
+      {`Price: ${props.price}`} 
+    </div>
+  )
+
   return (
     <Card className={styles.carCardRoot}>
       <CardHeader
@@ -32,14 +45,8 @@ export const CarCard = (props) => {
       <div className={styles.carChipsRoot}>
         {props.tags.map(tag => <Chip className={styles.carChips} label={tag} key={tag}/>)}
       </div>
-      {/* add in code to make this price div null on cars page but active on marketplace page
-      <div>
-        {`Price: $${props.price}`} 
-      </div>
-      */}
       <div className={styles.carActionsRoot}>
-        <ThumbsUp className={styles.carAction} onClick={props.handleLike} />
-        <Comment className={styles.carAction} onClick={props.handleComment} />
+        {props.showPrice ? price : carActions}
       </div>
     </Card>
   )
