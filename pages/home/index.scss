@@ -10,6 +10,7 @@
   width: 100% !important;
   display: flex;
   flex-direction: row;
+  margin-top: 32px;
 }
 
 .stackGrid > div {
@@ -19,4 +20,18 @@
 .card {
   margin: 0 !important;
   background-color: #f00 !important;
+}
+
+.torqSearchIcon {
+  margin-left: 16px !important;
+}
+
+.torqSearchIcon:hover {
+  cursor: pointer;
+}
+
+.searchRoot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

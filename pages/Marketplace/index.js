@@ -8,7 +8,14 @@ export default class MarketPlace extends Component {
   state = {
     make: ' ',
     model: ' ',
-    year: ' '
+    year: ' ',
+    price: ' ',
+    searchVal: 'Search Cars'
+  }
+
+  handleInputChange = (event) => {
+    event.preventDefault();
+    this.setState({ searchVal: event.target.value });
   }
 
   handleFormSelect = event => {
@@ -24,7 +31,10 @@ export default class MarketPlace extends Component {
             selected={this.handleFormSelect} 
             makeVal={this.state.make}
             modelVal={this.state.model}
-            yearVal={this.state.year} />
+            yearVal={this.state.year}
+            priceRange={this.state.price}
+            value={this.state.searchVal}
+            typed={this.handleInputChange} />
         </div>
       </Layout>
     )

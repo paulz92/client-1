@@ -1,22 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import classNames from 'classnames';
-import ExpansionPanel, {
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  ExpansionPanelActions,
-} from 'material-ui/ExpansionPanel';
-import Typography from 'material-ui/Typography';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import Button from 'material-ui/Button';
-import { FormControl } from 'material-ui/Form';
-import Input, { InputLabel } from 'material-ui/Input';
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
+import { Typography, Select, MenuItem, Input, InputLabel, FormControl, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui'
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
+import SearchIcon from 'material-ui-icons/Search'
 
+import { SearchBar } from '@/components'
 import styles from './index.scss'
-import { handle } from 'i18next-express-middleware';
+import { handle } from 'i18next-express-middleware'
 
 
 export const Filter = (props) => {
@@ -34,18 +22,33 @@ export const Filter = (props) => {
   const year = [2018]
 
   for (let i = 0; i < 118; i++) {
-    year.push(year[i] - 1);
+    year.push(year[i] - 1)
   }
 
+  const priceRange = [
+    "<$10,000",
+    "$10,001 - $20,000",
+    "$20,001 - $30,000",
+    "$30,001 - $40,000",
+    "$40,001 - $50,000",
+    "$50,001 - $60,000",
+    "$60,001 - $75,000",
+    "$75,001 - $100,000",
+    "$100,001+"
+  ]
+
   return (
-    <div >
-      <ExpansionPanel className={styles.root}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <div className={styles.column}>
-            <Typography className={styles.font}>Filter</Typography>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={styles.options}>
+    <ExpansionPanel className={styles.expPanRoot}>
+      <ExpansionPanelSummary>
+        <div className={styles.center}>
+          <Typography className={styles.titleFont}>Search Marketplace</Typography>
+          <ExpandMoreIcon className={styles.expIcon}/>
+        </div>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className={styles.options}>
+        <SearchBar typed={props.typed} value={props.value} />
+        <Typography className={styles.subFont}>Filter</Typography>
+        <div className={styles.filterGroups}>
           <FormControl className={styles.dropDownOpt}>
             <InputLabel  htmlFor="car-make">Make</InputLabel>
             <Select
@@ -68,6 +71,8 @@ export const Filter = (props) => {
               ))}
             </Select>
           </FormControl>
+        </div>
+        <div className={styles.filterGroups}>
           <FormControl className={styles.dropDownOpt}>
             <InputLabel htmlFor="car-year">Year</InputLabel>
             <Select
@@ -79,11 +84,20 @@ export const Filter = (props) => {
               ))}
             </Select>
           </FormControl>
-          <Button color="secondary">
-            Search
-          </Button> 
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </div>
+          <FormControl className={styles.dropDownOpt}>
+            <InputLabel htmlFor="price">Price</InputLabel>
+            <Select
+              value={props.priceRange}
+              onChange={props.selected}
+              input={<Input id="price" name="price" />}>
+              {priceRange.map(price => (
+                <MenuItem key={price} value={price}>{price}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+        <SearchIcon className={styles.torqSearchIcon} />
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   )
 }
