@@ -56,7 +56,7 @@
   border-top: 1.5px solid #B71C1C;
 }
 
-.carAction {
+.carAction, .carActionLike {
   padding: 12px 32px !important;
   margin: 4px 0px !important;
   background-color: white;
@@ -68,12 +68,89 @@
   filter: invert(13%);
 }
 
-.carAction:active {
-  background-color: #f05545;
+.carActionLike:active {
+  background-color: green;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 100ms;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 100ms;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 100ms;
+  -ms-animation-iteration-count: 1;
+  -ms-animation-timing-function: linear;
+  
+  animation-name: spin;
+  animation-duration: 100ms;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
 }
 
 .carPrice {
   color: green;
   font-weight: bold;
   margin: 10px;
+}
+
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.modalRoot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.getModalStyles {
+  background-color: white;
+  height: 85%;
+  width: 40%;
+  box-sizing: border-box;
+  padding: 16px 48px;
+  overflow: auto;
+}
+
+.modalTitle {
+  text-align: center !important;
+  color: #B71C1C !important;
+  font-weight: bold !important;
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.modalPic {
+  width: 75%;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 12.5% !important;
+}
+
+.carNote {
+  margin-top: 5px !important;
+  font-size: 1em !important;
+  text-align: center !important;
+}
+
+.commentBody {
+  width: 100%;
 }

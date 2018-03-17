@@ -15,7 +15,8 @@ import styles from './index.scss'
 @withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
-    searchVal: "Search cars"
+    searchVal: "Search cars",
+    modalOpen: false
   }
 
   transition = transitions.scaleDown
@@ -30,11 +31,13 @@ export default class Home extends Component {
     console.log('clicked to like car')
   }
 
-  handleCarComment = (event) => {
-    event.preventDefault();
-    console.log('clicked to comment on car')
+  handleModalOpen = () => {
+    this.setState({ modalOpen: true })
   }
 
+  handleModalClose = () => {
+    this.setState({ modalOpen: false })
+  }
 
   render() {
     const { transition } = this
@@ -63,8 +66,9 @@ export default class Home extends Component {
           >
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
-              className={styles.card}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={0}
               carMake="Honda" 
               carModel="Accord" 
@@ -75,7 +79,9 @@ export default class Home extends Component {
               owner="Test McTest" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={1}
               carMake="Mazda" 
               carModel="Miata" 
@@ -86,7 +92,9 @@ export default class Home extends Component {
               owner="Tester McTesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={2}
               carMake="Ford" 
               carModel="Excursion" 
@@ -97,8 +105,9 @@ export default class Home extends Component {
               owner="Testy MacTestytesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
-              className={styles.card}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={3}
               carMake="Honda" 
               carModel="Accord" 
@@ -109,7 +118,9 @@ export default class Home extends Component {
               owner="Test McTest" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={4}
               carMake="Mazda" 
               carModel="Miata" 
@@ -120,7 +131,9 @@ export default class Home extends Component {
               owner="Tester McTesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={5}
               carMake="Ford" 
               carModel="Excursion" 
@@ -131,8 +144,9 @@ export default class Home extends Component {
               owner="Testy MacTestytesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
-              className={styles.card}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={6}
               carMake="Honda" 
               carModel="Accord" 
@@ -143,7 +157,9 @@ export default class Home extends Component {
               owner="Test McTest" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={7}
               carMake="Mazda" 
               carModel="Miata" 
@@ -154,7 +170,9 @@ export default class Home extends Component {
               owner="Tester McTesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={8}
               carMake="Ford" 
               carModel="Excursion" 
@@ -165,8 +183,9 @@ export default class Home extends Component {
               owner="Testy MacTestytesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
-              className={styles.card}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={9}
               carMake="Honda" 
               carModel="Accord" 
@@ -177,7 +196,9 @@ export default class Home extends Component {
               owner="Test McTest" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={10}
               carMake="Mazda" 
               carModel="Miata" 
@@ -188,7 +209,9 @@ export default class Home extends Component {
               owner="Tester McTesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={11}
               carMake="Ford" 
               carModel="Excursion" 
@@ -199,8 +222,9 @@ export default class Home extends Component {
               owner="Testy MacTestytesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
-              className={styles.card}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={12}
               carMake="Honda" 
               carModel="Accord" 
@@ -211,7 +235,9 @@ export default class Home extends Component {
               owner="Test McTest" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={13}
               carMake="Mazda" 
               carModel="Miata" 
@@ -222,7 +248,9 @@ export default class Home extends Component {
               owner="Tester McTesterson" />
             <CarCard
               handleLike={this.handleCarLike}
-              handleComment={this.handleCarComment}
+              shouldModalBeOpen={this.state.modalOpen} 
+              closeModal={this.handleModalClose}
+              openModal={this.handleModalOpen}
               key={14}
               carMake="Ford" 
               carModel="Excursion" 
