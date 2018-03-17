@@ -61,6 +61,30 @@
   border-color: $torq-red;
 }
 
+.userContainer {
+  font-size: 10px !important;
+  @include flex(row, center, flex-end);
+  cursor: pointer;
+}
+
+.userContainer p {
+  color: #777 !important;
+  font-weight: bold !important;
+  margin-left: 4px !important;
+}
+
+.nameContainer {
+  @include flex(column, flex-end, center);
+  text-align: right !important;
+  color: $torq-red;
+  margin-right: 5px;
+}
+
+.nameContainer p {
+  margin: 0;
+  padding: 0;
+}
+
 @media screen and (min-width: 900px) {
   .mobileToolBar {
     display: none !important;

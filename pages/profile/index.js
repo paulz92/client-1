@@ -3,9 +3,10 @@ import { bindActionCreators } from 'redux'
 
 import { ProfCard, ProfileTab } from '@/components'
 import { Layout } from '@/containers'
-import { withTranslate, withMaterialUI } from '@/utils'
+import { withTranslate, withMaterialUI, withReduxPage } from '@/utils'
 import styles from './index.scss'
 
+@withReduxPage()
 @withTranslate(['Profile', 'common'])
 export default class Profile extends Component {
   state = {

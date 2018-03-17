@@ -5,7 +5,7 @@ export const loginWithEmail = `
     $email: String!,
     $pass: String!
   ) {
-    loginWithEmail(
+    buffer: loginWithEmail(
       email: $email,
       password: $pass
     ) {

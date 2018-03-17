@@ -1,6 +1,11 @@
-import { default as $Document, Head, Main, NextScript } from 'next/document'
+import {
+  default as $Document,
+  Head,
+  Main,
+  NextScript
+} from 'next/document'
 
-import { withTranslate, withMaterialUI } from '../utils'
+import { withTranslate, withMaterialUI, withRedux } from '../utils'
 
 @withMaterialUI()
 @withTranslate(['common'])

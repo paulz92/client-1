@@ -20,6 +20,7 @@ import {
   withTranslate,
   withApollo,
   withGraphQL,
+  withReduxPage,
   apolloFetch
 } from '@/utils'
 import {
@@ -62,6 +63,7 @@ const StepperButtons = ({ onNextClick, onPreviousClick, canProgress, showBack, o
 
 @withApollo
 @withGraphQL({ createUser: createUserMutation })
+@withReduxPage()
 @withTranslate(['home', 'common'])
 export default class Register extends Component {
   state = {

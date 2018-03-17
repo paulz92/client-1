@@ -1,6 +1,5 @@
-import $withRedux from 'next-redux-wrapper'
-import { initStore } from '../store'
+import { connect } from 'react-redux'
 
-export const withRedux = (mapStateToProps, mapDispatchToProps) => (
-  $withRedux(initStore, mapStateToProps, mapDispatchToProps)
-)
+export const withRedux = (mapStateToProps, mapDispatchToProps) => {
+  return connect(mapStateToProps, mapDispatchToProps)
+}
