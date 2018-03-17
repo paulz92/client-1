@@ -10,7 +10,6 @@ import {
   TextField,
 } from 'material-ui'
 import Dropzone from 'react-dropzone'
-import { compose, graphql } from 'react-apollo'
 
 import { Title } from '@/components'
 import { Layout } from '@/containers'
@@ -20,6 +19,7 @@ import {
   validateUsername,
   withTranslate,
   withApollo,
+  withGraphQL,
   apolloFetch
 } from '@/utils'
 import {
@@ -61,7 +61,7 @@ const StepperButtons = ({ onNextClick, onPreviousClick, canProgress, showBack, o
 )
 
 @withApollo
-@compose(graphql(createUserMutation, { name: 'createUser' }))
+@withGraphQL({ createUser: createUserMutation })
 @withTranslate(['home', 'common'])
 export default class Register extends Component {
   state = {

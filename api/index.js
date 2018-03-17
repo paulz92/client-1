@@ -5,3 +5,6 @@ export * from './findUserByUsername'
 export * from './uploadPostPicture'
 export * from './uploadProfilePicture'
 export * from './createUserMutation'
+export * from './loginWithEmailMutation'
+export * from './getAuthSubjectByEmailQuery'
+
