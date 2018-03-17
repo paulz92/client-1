@@ -5,8 +5,10 @@ import { graphql, compose } from 'react-apollo'
 
 import { Layout } from '@/containers'
 import {
+  getAuthSubjectByEmail,
   getAuthSubjectByUsername,
-  loginMutation
+  loginMutation,
+  loginWithEmailMutation,
 } from '@/api'
 import {
   validateEmail,
@@ -14,15 +16,18 @@ import {
   validatePassword,
   withTranslate,
   withApollo,
+  withGraphQL,
   apolloFetch
 } from '@/utils'
 import styles from './index.scss'
 
 const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
-const KATEUPTON_AVATAR = 'https://pbs.twimg.com/profile_images/887828156886986752/F7XIdhSg_400x400.jpg'
 
 @withApollo
-@compose(graphql(loginMutation, { name: 'login' }))
+@withGraphQL({
+  login: loginMutation,
+  loginWithEmail: loginWithEmailMutation
+})
 @withTranslate(['home', 'common'])
 export default class Login extends Component {
 
@@ -40,10 +45,17 @@ export default class Login extends Component {
   }
 
   async checkIfIdentifierExists(s) {
-    const { data, errors } = await apolloFetch({
-      query: getAuthSubjectByUsername,
-      variables: { user: s }
-    })
+    const { data, errors } = await apolloFetch(
+      this.state.identifierIsEmail ?
+      {
+        query: getAuthSubjectByEmail,
+        variables: { email: s }
+      } :
+      {
+        query: getAuthSubjectByUsername,
+        variables: { user: s }
+      }
+    )
 
     if (errors || (errors && errors.length))
       return false
@@ -88,7 +100,13 @@ export default class Login extends Component {
   async handleSubmit(e) {
     e.preventDefault()
 
-    const { identifier, password, identifierSuccess } = this.state
+    const {
+      identifier,
+      password,
+      identifierSuccess,
+      identifierIsEmail
+    } = this.state
+
     if (!identifierSuccess) {
       const doesExist = await this.checkIfIdentifierExists(identifier)
       console.log('doesExist', doesExist)
@@ -102,11 +120,18 @@ export default class Login extends Component {
 
     console.log(this.props)
 
-    const { data } = await this.props.login({
-      variables: { user: identifier, pass: password }
-    })
+    const { data, errors } = await identifierIsEmail ?
+      this.props.loginWithEmail({
+        variables: { email: identifier, pass: password }
+      }) :
+      this.props.login({
+        variables: { user: identifier, pass: password }
+      })
 
-    console.log('auth buffer => ', data.buffer)
+    if (errors)
+      console.log('errors loggin in', errors)
+    else
+      console.log('auth buffer => ', data.buffer)
   }
 
   render() {

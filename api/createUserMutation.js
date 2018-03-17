@@ -17,12 +17,18 @@ export const createUser = `
       password: $password,
       avatarUrl: $avatarUrl
     ) {
-      id
-      username
-      avatarUrl
+      token
+      user {
+        username
+        email
+        firstname
+        lastname
+        role
+        joinedAt
+        avatarUrl
+      }
     }
   }
 `
 
 export const createUserMutation = gql(createUser)
-
