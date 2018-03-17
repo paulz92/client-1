@@ -10,6 +10,7 @@ import {
   TextField,
 } from 'material-ui'
 import Dropzone from 'react-dropzone'
+import { compose, graphql } from 'react-apollo'
 
 import { Title } from '@/components'
 import { Layout } from '@/containers'
@@ -17,12 +18,20 @@ import {
   validateEmail,
   validatePassword,
   validateUsername,
-  withTranslate
+  withTranslate,
+  withApollo,
+  apolloFetch
 } from '@/utils'
+import {
+  findUserByEmail,
+  findUserByUsername,
+  uploadProfilePicture,
+  createUserMutation,
+} from '@/api'
 
 import styles from './index.scss'
 
-const StepperButtons = ({ onNextClick, onPreviousClick, canProgress, showBack }) => (
+const StepperButtons = ({ onNextClick, onPreviousClick, canProgress, showBack, onSubmit }) => (
   <div className={styles.stepperButtons}>
     {showBack ?
       <Button
@@ -37,13 +46,22 @@ const StepperButtons = ({ onNextClick, onPreviousClick, canProgress, showBack })
       disabled={!canProgress}
       className={styles.stepperButton}
       variant="raised"
-      onClick={onNextClick}
+      onClick={async e => {
+        let success = true
+        if (typeof onSubmit === 'function')
+          success = await onSubmit(e)
+
+        if (success && typeof onNextClick === 'function')
+          onNextClick(e)
+      }}
     >
       Continue
     </Button>
   </div>
 )
 
+@withApollo
+@compose(graphql(createUserMutation, { name: 'createUser' }))
 @withTranslate(['home', 'common'])
 export default class Register extends Component {
   state = {
@@ -100,44 +118,42 @@ export default class Register extends Component {
       && lastname.length
   }
 
-  async isUsernameUnique(username) {
-    // TODO: implement
-    return true
+  async isUsernameUnique() {
+    const { errors } = await apolloFetch({
+      query: findUserByUsername,
+      variables: { user: this.state.username },
+    })
+
+    return Boolean(errors ? errors.length : false)
   }
 
-  async isEmailUnique(username) {
-    // TODO: implement
-    return true
+  async isEmailUnique() {
+    const { errors } = await apolloFetch({
+      query: findUserByEmail,
+      variables: { email: this.state.email }
+    })
+
+    return Boolean(errors ? errors.length : false)
   }
 
-  async handleUsernameChange(e) {
+  handleUsernameChange(e) {
     const { value } = e.target
     
     const isValidUsername = validateUsername(value)
-    let isUniqueUsername = false
-
-    if (isValidUsername)
-      isUniqueUsername = await this.isUsernameUnique(value)
 
     this.setState({
       username: value,
-      isUniqueUsername,
       isValidUsername,
     })
   }
 
-  async handleEmailChange(e) {
+  handleEmailChange(e) {
     const { value } = e.target
 
     const isValidEmail = validateEmail(value)
-    let isUniqueEmail = false
-
-    if (isValidEmail)
-      isUniqueEmail = await this.isEmailUnique(value)
 
     this.setState({
       email: value,
-      isUniqueEmail,
       isValidEmail,
     })
   }
@@ -190,6 +206,72 @@ export default class Register extends Component {
     })
   }
 
+  async handleRegisterSubmit() {
+    const {
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
+      uploadedAvatarUrl
+    } = this.state
+
+    try {
+      const data = await this.props.createUser({
+        variables: {
+          firstname,
+          lastname,
+          username,
+          email,
+          password,
+          avatarUrl: uploadedAvatarUrl
+        }
+      })
+
+      console.log('data =>', data)
+    } catch (err) {
+      console.error(`Error registering new user: ${err.message}`)
+      return false
+    }
+
+    return true
+  }
+
+  async handleEmailBlur() {
+    const isUniqueEmail = this.state.isValidEmail
+      ? await this.isEmailUnique()
+      : false
+
+    this.setState({
+      hasFocusedEmail: true,
+      isUniqueEmail,
+    })
+  }
+
+  async handleUsernameBlur() {
+    const isUniqueUsername = this.state.isValidUsername
+      ? await this.isUsernameUnique()
+      : false
+
+    this.setState({
+      hasFocusedUsername: true,
+      isUniqueUsername,
+    })
+  }
+
+  async handleAvatarUpload(accepted) {
+    const file = accepted.shift()
+    let uri
+
+    try {
+      uri = await uploadProfilePicture(file)
+    } catch (err) {console.error(err)}
+
+    this.setState({
+      uploadedAvatarUrl: uri || file.preview,
+    })
+  }
+
   render() {
     const {
       email,
@@ -231,7 +313,7 @@ export default class Register extends Component {
                   className={styles.field}
                   label={email.length ? 'Email' : 'Enter your email'}
                   error={hasFocusedEmail && (!isValidEmail || !isUniqueEmail)}
-                  onBlur={() => this.setState({ hasFocusedEmail: true })}
+                  onBlur={() => this.handleEmailBlur()}
                   onChange={e => this.handleEmailChange(e)}
                   value={email}
                   helperText={
@@ -246,7 +328,7 @@ export default class Register extends Component {
                   className={styles.field}
                   label={username.length ? 'Username' : 'Enter your username'}
                   error={hasFocusedUsername && (!isValidUsername || !isUniqueUsername)}
-                  onBlur={() => this.setState({ hasFocusedUsername: true })}
+                  onBlur={() => this.handleUsernameBlur()}
                   onChange={e => this.handleUsernameChange(e)}
                   value={username}
                   helperText={
@@ -286,7 +368,7 @@ export default class Register extends Component {
                   }
                 />
                 <StepperButtons
-                  canProgress={true || this.isFirstStepSuccessful}
+                  canProgress={this.isFirstStepSuccessful}
                   onNextClick={() => this.handleNextStep()}
                   onPreviousClick={() => this.handlePreviousStep()}
                   showBack={false}
@@ -302,7 +384,7 @@ export default class Register extends Component {
                     background: `url(${uploadedAvatarUrl || '/public/images/user-placeholder.svg'})`
                   }}
                   accept="image/jpeg, image/png"
-                  onDrop={accepted => this.setState({ uploadedAvatarUrl: accepted.shift().preview })}
+                  onDrop={accepted => this.handleAvatarUpload(accepted)}
                 >
                   {uploadedAvatarUrl.length ? null : 'Drop in an image'}
                 </Dropzone>
@@ -337,6 +419,7 @@ export default class Register extends Component {
                   onNextClick={() => this.handleNextStep()}
                   onPreviousClick={() => this.handlePreviousStep()}
                   showBack={true}
+                  onSubmit={() => this.handleRegisterSubmit()}
                 />
               </StepContent>
             </Step>

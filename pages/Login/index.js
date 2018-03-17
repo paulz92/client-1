@@ -1,19 +1,28 @@
 import { Component } from 'react'
 import { Card, TextField, Avatar, Button, Typography } from 'material-ui'
 import { withTitle } from 'pretty-next'
+import { graphql, compose } from 'react-apollo'
 
 import { Layout } from '@/containers'
+import {
+  getAuthSubjectByUsername,
+  loginMutation
+} from '@/api'
 import {
   validateEmail,
   validateUsername,
   validatePassword,
-  withTranslate
+  withTranslate,
+  withApollo,
+  apolloFetch
 } from '@/utils'
 import styles from './index.scss'
 
 const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
 const KATEUPTON_AVATAR = 'https://pbs.twimg.com/profile_images/887828156886986752/F7XIdhSg_400x400.jpg'
 
+@withApollo
+@compose(graphql(loginMutation, { name: 'login' }))
 @withTranslate(['home', 'common'])
 export default class Login extends Component {
 
@@ -22,16 +31,26 @@ export default class Login extends Component {
     identifierIsEmail: false,
     identifierSuccess: false,
     identifierIsValid: false,
+    didJustFetch: false,
     password: '',
     passwordIsValid: false,
     shouldHidePassword: true,
+    firstname: null,
     avatarUrl: PLACEHOLDER_AVATAR,
   }
 
   async checkIfIdentifierExists(s) {
-    // TODO: ping api/user/s
-    // if 404, return false
-    // if 2XX-3XX, return true
+    const { data, errors } = await apolloFetch({
+      query: getAuthSubjectByUsername,
+      variables: { user: s }
+    })
+
+    if (errors || (errors && errors.length))
+      return false
+    
+    const { avatarUrl, firstname } = data.subject
+    this.setState({ avatarUrl, firstname })
+
     return true
   }
 
@@ -48,8 +67,10 @@ export default class Login extends Component {
       identifierSuccess: false,
       identifierIsValid: isValidEmail || isValidUserName,
       identifierIsEmail: isValidEmail,
+      didJustFetch: false,
       password: '',
       passwordIsValid: false,
+      firstname: null,
       avatarUrl: PLACEHOLDER_AVATAR,
     })
   }
@@ -70,13 +91,22 @@ export default class Login extends Component {
     const { identifier, password, identifierSuccess } = this.state
     if (!identifierSuccess) {
       const doesExist = await this.checkIfIdentifierExists(identifier)
+      console.log('doesExist', doesExist)
       this.setState({
+        didJustFetch: true,
         identifierSuccess: doesExist,
-        avatarUrl: KATEUPTON_AVATAR,
       })
 
       return this.passwordField.focus()
     }
+
+    console.log(this.props)
+
+    const { data } = await this.props.login({
+      variables: { user: identifier, pass: password }
+    })
+
+    console.log('auth buffer => ', data.buffer)
   }
 
   render() {
@@ -87,7 +117,9 @@ export default class Login extends Component {
       identifierIsEmail,
       shouldHidePassword,
       avatarUrl,
+      firstname,
       password,
+      didJustFetch,
     } = this.state
 
     return (
@@ -100,6 +132,11 @@ export default class Login extends Component {
             Please Sign In
           </Typography>
           <Card className={styles.card}>
+            {firstname ?
+              <Typography className={styles.greeting}>
+                Hello, {`${firstname[0].toUpperCase()}${firstname.slice(1)}`}.
+              </Typography> : null
+            }
             <Avatar
               className={styles.avatar}
               src={avatarUrl}
@@ -122,6 +159,8 @@ export default class Login extends Component {
                 ref={textField => this.identifierField = textField}
                 onChange={e => this.handleIdentifierChange(e)}
                 value={identifier}
+                errorText="user not found"
+                error={didJustFetch && !identifierSuccess}
               />
               {identifierSuccess ?
                 <TextField
