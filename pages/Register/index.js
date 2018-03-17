@@ -10,7 +10,9 @@ import {
   TextField,
 } from 'material-ui'
 import Dropzone from 'react-dropzone'
+import { bindActionCreators } from 'redux'
 
+import { setUser } from '@/actions'
 import { Title } from '@/components'
 import { Layout } from '@/containers'
 import {
@@ -63,7 +65,10 @@ const StepperButtons = ({ onNextClick, onPreviousClick, canProgress, showBack, o
 
 @withApollo
 @withGraphQL({ createUser: createUserMutation })
-@withReduxPage()
+@withReduxPage(
+  null,
+  dispatch => bindActionCreators({ setUser }, dispatch)
+)
 @withTranslate(['home', 'common'])
 export default class Register extends Component {
   state = {
@@ -219,7 +224,7 @@ export default class Register extends Component {
     } = this.state
 
     try {
-      const data = await this.props.createUser({
+      const { data } = await this.props.createUser({
         variables: {
           firstname,
           lastname,
@@ -230,7 +235,7 @@ export default class Register extends Component {
         }
       })
 
-      console.log('data =>', data)
+      this.props.setUser(data.createUser)
     } catch (err) {
       console.error(`Error registering new user: ${err.message}`)
       return false
