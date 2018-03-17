@@ -17,7 +17,7 @@ export const CarCard = (props) => {
 
   const price = (
     <div className={styles.carPrice}>
-      {`Price: ${props.price}`} 
+      {`${props.price}`} 
     </div>
   )
 
