@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { Card, TextField, Avatar, Button, Typography } from 'material-ui'
 import { withTitle } from 'pretty-next'
 import { graphql, compose } from 'react-apollo'
+import { bindActionCreators } from 'redux'
 
 import { Layout } from '@/containers'
 import {
@@ -17,8 +18,10 @@ import {
   withTranslate,
   withApollo,
   withGraphQL,
+  withReduxPage,
   apolloFetch
 } from '@/utils'
+import { setUser } from '@/actions'
 import styles from './index.scss'
 
 const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
@@ -28,9 +31,14 @@ const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
   login: loginMutation,
   loginWithEmail: loginWithEmailMutation
 })
+@withReduxPage(
+  null,
+  dispatch => bindActionCreators({
+    setUser
+  }, dispatch)
+)
 @withTranslate(['home', 'common'])
 export default class Login extends Component {
-
   state = {
     identifier: '',
     identifierIsEmail: false,
@@ -64,9 +72,6 @@ export default class Login extends Component {
     this.setState({ avatarUrl, firstname })
 
     return true
-  }
-
-  componentDidMount() {
   }
 
   handleIdentifierChange(e) {
@@ -120,18 +125,20 @@ export default class Login extends Component {
 
     console.log(this.props)
 
-    const { data, errors } = await identifierIsEmail ?
-      this.props.loginWithEmail({
+    const { data, errors } = identifierIsEmail ?
+      await this.props.loginWithEmail({
         variables: { email: identifier, pass: password }
       }) :
-      this.props.login({
+      await this.props.login({
         variables: { user: identifier, pass: password }
       })
+
+    console.log(data, errors)
 
     if (errors)
       console.log('errors loggin in', errors)
     else
-      console.log('auth buffer => ', data.buffer)
+      this.props.setUser(data.buffer)
   }
 
   render() {

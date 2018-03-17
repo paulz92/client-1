@@ -1,7 +1,7 @@
 import cookies from 'js-cookie'
 
-export default ({ count }) => {
-  const state = { count }
+export default ({ auth }) => {
+  const state = { auth }
   try {
     const serializedState = JSON.stringify(state)
     cookies.set('state', serializedState)

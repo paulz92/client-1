@@ -1,15 +1,20 @@
-import React from 'react'
+import { Component } from 'react'
 
 import { Layout } from '@/containers'
-import styles from './index.scss'
 import { AboutTorq } from '@/components'
+import styles from './index.scss'
 
-export default () => (
-  <Layout>
-    <div className={styles.root}>
-      <div className={styles.aboutTorqRoot}>
-        <AboutTorq />
-      </div>
-    </div>
-  </Layout>
-)
+// fixme: withRedux fucks the style up here
+export default class About extends Component {
+  render() {
+    return(
+      <Layout store={{getState: () => {}}}>
+        <div className={styles.root}>
+          <div className={styles.aboutTorqRoot}>
+            <AboutTorq />
+          </div>
+        </div>
+      </Layout>
+    )
+  }
+}

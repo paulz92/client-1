@@ -3,9 +3,11 @@ import StackGrid, { transitions, easings } from 'react-stack-grid'
 
 import { Layout } from '@/containers'
 import { Filter, Title, CarCard } from '@/components'
+import { withReduxPage } from '@/utils'
 
 import styles from './index.scss'
 
+@withReduxPage()
 export default class MarketPlace extends Component {
   state = {
     make: ' ',

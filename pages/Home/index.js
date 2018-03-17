@@ -7,16 +7,11 @@ import { CarCard, SearchBar, Title } from '@/components'
 import { Layout } from '@/containers'
 
 import { incrementCount, decrementCount } from '@/actions'
-import { withTranslate, withRedux, withMaterialUI } from '@/utils'
+import { withTranslate, withReduxPage, withMaterialUI } from '@/utils'
 
 import styles from './index.scss'
 
-const mapStateToProps = ({ count }) => ({ count })
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({ incrementCount, decrementCount }, dispatch)
-)
-
-@withRedux(mapStateToProps, mapDispatchToProps)
+@withReduxPage()
 @withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
