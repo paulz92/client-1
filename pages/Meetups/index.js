@@ -10,11 +10,9 @@ export default class Meetups extends Component {
   render() {
     return (
       <Layout>
-        <Title title="Meetups" />
-      <div className={styles.root}>
-        <div style={{flexGrow: 1}} />
-          <CreateMeetUp  className={styles.meetUp}/>
-      </div>
+        <div className={styles.root}>
+          <Title title="Coming Soon" />
+        </div>
       </Layout>
     )
   }
