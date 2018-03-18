@@ -21,6 +21,7 @@ export class ProfileTab extends Component {
     const myCar = 
       <div className={styles.profTabContent}>
         <CarCard
+          openModal={this.props.openCommentModal} 
           carMake="Honda" 
           carModel="Accord" 
           carYear="2010" 
@@ -33,7 +34,8 @@ export class ProfileTab extends Component {
 
     const favCars = 
       <div className={styles.profTabContent}>
-        <CarCard 
+        <CarCard
+          openModal={this.props.openCommentModal} 
           carMake="Mazda" 
           carModel="Miata" 
           carYear="2018" 
@@ -42,7 +44,8 @@ export class ProfileTab extends Component {
           tags={["sporty", "quick"]}
           owner="Tester McTesterson"
           carAction="Like" />
-        <CarCard 
+        <CarCard
+          openModal={this.props.openCommentModal} 
           carMake="Ford" 
           carModel="Excursion" 
           carYear="2010" 
@@ -68,7 +71,7 @@ export class ProfileTab extends Component {
           <Tab icon={<FavoriteIcon />} label="FAVORITE CARS" />
           <Tab icon={<PersonPinIcon />} label="MEETUPS" />
         </Tabs>
-        { this.state.tab === 0 ?  myCar : this.state.tab === 1 ? favCars : this.state.tab === 2 ? <div className={styles.profTabContent}>meetups</div> : null  }
+        { this.state.tab === 0 ?  myCar : this.state.tab === 1 ? favCars : this.state.tab === 2 ? <div className={styles.profTabContent}>Meetups Coming Soon</div> : null  }
       </Paper>
     )
   }

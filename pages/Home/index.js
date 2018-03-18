@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
 import SearchIcon from 'material-ui-icons/Search'
 
-import { CarCard, CarCommentModal, SearchBar, Title } from '@/components'
-import { Layout } from '@/containers'
+import { CarCard, SearchBar, Title } from '@/components'
+import { Layout, CarCommentModal } from '@/containers'
 
 import { incrementCount, decrementCount } from '@/actions'
 import { withTranslate, withReduxPage, withMaterialUI } from '@/utils'
@@ -16,16 +16,6 @@ import styles from './index.scss'
 export default class Home extends Component {
   state = {
     searchVal: "Search cars",
-    carCommentModal: {
-      carYear: "Info for",
-      carMake: "car",
-      carModel: "clicked",
-      carNote: "Car note for car clicked",
-      carPic: "https://media.ed.edmunds-media.com/ford/excursion/2003/oem/2003_ford_excursion_4dr-suv_eddie-bauer_fq_oem_1_500.jpg",
-      tags: ["tags for", "car", "clicked"],
-      comments: ["comments associated", "with the car that", "was clicked by the user"],
-      commentBody: ""
-    },
     modalOpen: false
   }
 
@@ -36,35 +26,17 @@ export default class Home extends Component {
     this.setState({ searchVal: event.target.value })
   }
 
-  handleCommentChange = (event) => {
-    event.preventDefault()
-    const newCarCommentModal = { ...this.state.carCommentModal }
-    newCarCommentModal.commentBody = event.target.value
-    this.setState({ carCommentModal: newCarCommentModal })
-  }
-
   handleCarLike = (event) => {
     event.preventDefault()
     console.log('clicked to like car')
   }
 
   handleModalOpen = () => {
-    console.log(this)
     this.setState({ modalOpen: true })
   }
 
   handleModalClose = () => {
     this.setState({ modalOpen: false })
-  }
-
-  handleAddComment = (event) => {
-    event.preventDefault()
-    const newCarCommentModal = { ...this.state.carCommentModal }
-    const commentsArray = [ ...newCarCommentModal.comments ]
-    commentsArray.push(this.state.carCommentModal.commentBody)
-    newCarCommentModal.comments = commentsArray
-    newCarCommentModal.commentBody = ""
-    this.setState({ carCommentModal: newCarCommentModal })
   }
 
   render() {
@@ -258,19 +230,8 @@ export default class Home extends Component {
               tags={["big", "ford"]}
               owner="Testy MacTestytesterson" />
             <CarCommentModal 
-              shouldModalBeOpen={this.state.modalOpen}
               closeModal={this.handleModalClose}
-              carYear={this.state.carCommentModal.carYear}
-              carMake={this.state.carCommentModal.carMake}
-              carModel={this.state.carCommentModal.carModel}
-              carNote={this.state.carCommentModal.carNote}
-              carPic={this.state.carCommentModal.carPic}
-              tags={this.state.carCommentModal.tags}
-              currentComments={this.state.carCommentModal.comments}
-              changed={this.handleCommentChange}
-              commentBody={this.state.carCommentModal.commentBody}
-              addComment={this.handleAddComment}
-            />
+              shouldCommentModalBeOpen={this.state.modalOpen} />
           </StackGrid>
         </div>
       </Layout>

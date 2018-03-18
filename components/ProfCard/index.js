@@ -1,8 +1,9 @@
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import { Button } from 'material-ui'
 import Typography from 'material-ui/Typography';
 
 import styles from './index.scss'
-import { NewPostModal } from '../index.js'
+import { NewPostModal } from '@/containers'
 
 export const ProfCard = (props) =>
   <Card className={styles.profCardRoot}>
@@ -17,16 +18,7 @@ export const ProfCard = (props) =>
         <Typography className={styles.profInfo} component="p">
           {props.bio}
         </Typography>
-        <NewPostModal 
-          openModal={props.openModal} 
-          shouldModalBeOpen={props.shouldModalBeOpen} 
-          closeModal={props.closeModal} 
-          changed={props.changed}
-          newPostInfo={props.newPostInfo}
-          tagAdd={props.tagAdd}
-          tagDelete={props.tagDelete}
-          acceptedDrop={props.acceptedDrop}
-          uploadedAvatarURL={props.uploadedAvatarURL} />
+        <Button onClick={props.openNewPostModal} variant="raised" className={styles.createPostButton}>Create Post</Button>
       </CardContent>
     </div>
     <CardMedia className={styles.profImage} image="http://moziru.com/images/mystery-clipart-mystery-person-5.jpg" title={`image of ${props.name}`} />
