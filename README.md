@@ -1,72 +1,67 @@
-# Torq.
----
-An social and marketplace app developed for cars lovers, driven by user activity to discuss and discover people in your area with the same taste in cars.
+<a href="#link_to_torq"><h1 align="center">Torq</h1></a>
 
-Check it out [Torq]()
+<p align="center">A social media/marketplace app for car lovers
+<p align="center"><img src="/gif_of_homepage.gif"></p>
 
 ## Motivation
 For passionate car lovers it can be annoying maybe even difficult having to use to different applications to one share those awesome car pictures you took with your friends and then having to switch to another app to sale your car or parts no longer needed. Torq brings it all to a one-stop app that allows you to connect, share, and sale car related thing.
 
 ## Code style
-ReactJS, ES6
- 
-## Screenshot
-![screenshot of home]()
+- ReactJS
+- ES2017
+- Object Oriented Paraidgm
+- Functional Paradigm
+- Singleton Pattern
+- Decorator Pattern
 
-## Tech/framework used
-<b>Built with</b>
-- [React.js]()
-- [Next]()
-- [Styed Components]()
-- [Redux]()
-- [Material UI Next(beta)](https://material-ui-next.com/)
-- [Google Cloud]()
-- [Axios](https://www.axios.com/)
-- [i18n](https://jwt.io/)
-- [bcrypt](https://www.npmjs.com/package/bcrypt)
-- [Redux]()
-- [Apollo]()
-- [Mocha](https://mochajs.org/)
-- [Express.js](https://expressjs.com/)
+## Technologies used
+- [ReactJS](https://reactjs.org/)
+- [NextJS](https://learnnextjs.com/)
+- [TypeScript](http://www.typescriptlang.org/)
+- [GraphQL](https://graphql.org/)
+- [Apollo](https://www.apollographql.com/)
+- [Winston](https://github.com/winstonjs/winston)
+- [i18n](https://github.com/mashpie/i18n-node)
+- [Redux](https://redux.js.org)
+- [Sass](https://sass-lang.com/guide)
+- [Webpack](https://webpack.js.org/)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [JWT](https://jwt.io/)
+- [Jest](https://facebook.github.io/jest/)
+- [MaterialUI@next](https://material-ui-next.com/)
+- [Thunk](https://github.com/gaearon/redux-thunk)
+- [Mongoose](http://mongoosejs.com/)
+- [Docker](https://www.docker.com/)
+- [BusyBox](https://www.busybox.net/)
+- [DigitalOcean](https://www.digitalocean.com/)
+- [Google Cloud](https://cloud.google.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud)
+- [Nginx](https://www.nginx.com/)
 
 ## Features
-- React.js permits for a quick and dynamic application
-- Login feature utilizing JWT and bcrypt for secure and simple logins
-- Our Car Stack Grid to see all car post in one location in a Pinterest style waterfall
-- User input validation while registering, logging in, and creating posts
-- Custom [API](https://github.com/try-torq/api)
-- Torq logos
-- User profile for easy viewing of past post/comment history
-- Material UI Next for a cutting edge UI tech
-- GraphQL
-- Image Upload  
+- Create/edit/delete an account
+- Create/edit/delete a car post
+- Comment on posts
+- Favorite posts
+- Pin posts
+- Search Posts
+- View users
+- View cars
 
-## Installation
-Steps to clone repo to your local machine:
-
-- Clone the repo to your preferred local directory
-- Ensure that you have Node.js version 8.0 or later
-- Ensure that you have [Yarn](https://yarnpkg.com/en/) installed
-- Run the following in CLI to install all dependencies
-    
-    `yarn`
-
-- Run the following in CLI to launch the app in development mode
-
-    `yarn dev`
-
-- Navigate to http://localhost:3000 in your browser
+## Setting up the development environment
+- Clone the repository to a local directory
+- Ensure that you have [yarn]() installed
+- Install dependencies with `$ yarn`
+- Export environmental your respective environmental variables
+- Run `$ yarn dev`
+- Navigate to `[http://localhost:3000](http://localhost:3000)` in your browser
 
 ## API Reference
-We created our own API for this project. The API can be visted at:
-
-- [Github Repo](https://github.com/try-torq/client)
-- [Active API]()
+We created [our own API](h). The source code can be found [here]()
 
 ## Credits
 - [Udemy](https://www.udemy.com/)
-- UNC Chapel Hill Coding Boot Camp
-
 
 ## License
-MIT © [Charles Kenney](https://github.com/Charliekenney23), [Paul Zavattieri](https://github.com/paulz92), [Emmanuel Mosqueda R.](https://github.com/Emmamr), [Jamal Patterson](https://github.com/jpatterson24)
+MIT © 2018 [Charles Kenney](https://github.com/Charliekenney23), [Paul Zavattieri](https://github.com/paulz92), [Emmanuel Mosqueda R.](https://github.com/Emmamr), [Jamal Patterson](https://github.com/jpatterson24)
