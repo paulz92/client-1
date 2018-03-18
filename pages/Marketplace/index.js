@@ -68,7 +68,8 @@ export default class MarketPlace extends Component {
             tags={["sedan", "family"]}
             owner="Test McTest"
             showPrice={true}
-            price="$12,500" />
+            price="$12,500"
+            email="buymycar@now.com" />
           <CarCard
             key={1}
             carMake="Mazda" 
@@ -79,7 +80,8 @@ export default class MarketPlace extends Component {
             tags={["sporty", "quick"]}
             owner="Tester McTesterson"
             showPrice={true}
-            price="$22,500" />
+            price="$22,500"
+            email="buymycar@now.com" />
           <CarCard
             key={2}
             carMake="Ford" 
@@ -90,7 +92,8 @@ export default class MarketPlace extends Component {
             tags={["big", "ford"]}
             owner="Testy MacTestytesterson"
             showPrice={true}
-            price="$8,500" />
+            price="$8,500"
+            email="buymycar@now.com" />
         </StackGrid>
       </Layout>
     )

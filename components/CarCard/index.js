@@ -14,8 +14,11 @@ export const CarCard = (props) => {
   )
 
   const price = (
-    <div className={styles.carPrice}>
-      {`${props.price}`} 
+    <div className={styles.buyRoot}>
+      <div className={styles.carPrice}>
+        {`${props.price}`} 
+      </div>
+      {props.email}
     </div>
   )
 

@@ -81,3 +81,11 @@
   font-weight: bold;
   margin: 10px;
 }
+
+.buyRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px !important;
+}
