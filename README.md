@@ -1,6 +1,6 @@
 <a href="#link_to_torq"><h1 align="center">Torq</h1></a>
 
-<p align="center">A social media/marketplace app for car lovers
+<p align="center">A social media + marketplace web app for car enthusiasts.
 <p align="center"><img src="/gif_of_homepage.gif"></p>
 
 ## Motivation
@@ -55,10 +55,10 @@ For passionate car lovers it can be annoying maybe even difficult having to use 
 - Install dependencies with `$ yarn`
 - Export environmental your respective environmental variables
 - Run `$ yarn dev`
-- Navigate to `[http://localhost:3000](http://localhost:3000)` in your browser
+- Navigate to `http://localhost:3000` in your browser
 
 ## API Reference
-We created [our own API](h). The source code can be found [here]()
+We created [our own API](#api_link). The source code can be found [here](https://github.com/try-torq/api).
 
 ## Credits
 - [Udemy](https://www.udemy.com/)
