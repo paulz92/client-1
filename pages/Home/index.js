@@ -6,7 +6,7 @@ import SearchIcon from 'material-ui-icons/Search'
 import { CarCard, SearchBar, Title } from '@/components'
 import { Layout, CarCommentModal } from '@/containers'
 
-import { fetchPosts, presentPostModal } from '@/actions'
+import { fetchPosts, presentPostModal, togglePostFavorite, presentLoginModal } from '@/actions'
 import {
   withTranslate,
   withReduxPage,
@@ -22,10 +22,12 @@ import styles from './index.scss'
 
 @withApollo
 @withReduxPage(
-  state => ({ carPosts: state.carPosts }),
+  state => ({ carPosts: state.carPosts, user: state.auth.user }),
   dispatch => bindActionCreators({
     fetchPosts,
-    presentPostModal
+    presentPostModal,
+    presentLoginModal,
+    togglePostFavorite,
   }, dispatch)
 )
 @withTranslate(['Home', 'common'])
@@ -42,9 +44,24 @@ export default class Home extends Component {
     this.setState({ searchVal: event.target.value })
   }
 
-  handleCarLike = (event) => {
-    event.preventDefault()
-    console.log('clicked to like car')
+  handleCarFavorite(e, id) {
+    e.stopPropagation()
+
+    if (this.isAuthenticated) {
+      this.props.togglePostFavorite(id)
+    } else {
+      this.props.presentLoginModal()
+    }
+  }
+
+  handleCarComment(e, id) {
+    e.stopPropagation()
+
+    if (this.isAuthenticated) {
+      this.props.presentPostModal(id, true)
+    } else {
+      this.props.presentLoginModal()
+    }
   }
 
   async componentDidMount() {
@@ -52,8 +69,17 @@ export default class Home extends Component {
     this.props.fetchPosts()
   }
 
+  get isAuthenticated() {
+    return Boolean(this.props.user)
+  }
+
+  get userId() {
+    return this.isAuthenticated &&
+      this.props.user.id
+  }
+
   render() {
-    const { transition, props } = this
+    const { transition, props, userId, isAuthenticated } = this
     const { posts, error, loading } = this.props.carPosts
 
     return (
@@ -74,23 +100,27 @@ export default class Home extends Component {
             leaved={transition.leaved}
             className={styles.stackGrid}
           >
-            {posts && [...posts, ...posts, ...posts, ...posts].map((car, idx) =>
-              <CarCard
-                onFavoriteClick={e => { e.stopPropagation() }}
-                onCommentClick={e => { e.stopPropagation() }}
-                onClick={() => this.props.presentPostModal(car.id)}
-                key={car.id + idx}
-                carNote={car.body}
-                pics={car.pictureUrls}
-                avatar={car.owner.avatarUrl}
-                tags={car.tags.map(tag => tag.name)}
-                handle={car.owner.username}
-                nickname={car.nickname}
-                year={car.year}
-                make={car.carModel.make.name}
-                model={car.carModel.name}
-              />
-            )}
+            {posts && [...posts, ...posts, ...posts, ...posts].map((car, idx) => {
+              const isFavorited = isAuthenticated && car.favorites.find(fav => fav.user.id === userId)
+              return (
+                <CarCard
+                  onFavoriteClick={e => this.handleCarFavorite(e, car.id)}
+                  onCommentClick={e => this.handleCarComment(e, car.id)}
+                  onClick={() => this.props.presentPostModal(car.id)}
+                  isFavorited={isFavorited}
+                  key={car.id + idx}
+                  carNote={car.body}
+                  pics={car.pictureUrls}
+                  avatar={car.owner.avatarUrl}
+                  tags={car.tags.map(tag => tag.name)}
+                  handle={car.owner.username}
+                  nickname={car.nickname}
+                  year={car.year}
+                  make={car.carModel.make.name}
+                  model={car.carModel.name}
+                />
+              )
+            })}
           </StackGrid>
         </div>
       </Layout>

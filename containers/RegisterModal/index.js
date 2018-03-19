@@ -317,6 +317,8 @@ export class RegisterModal extends Component {
             <StepLabel>Create your personal account</StepLabel>
             <StepContent className={styles.stepContent}>
               <TextField
+                autoComplete={false}
+                autoFocus
                 className={styles.field}
                 label={email.length ? 'Email' : 'Enter your email'}
                 error={hasFocusedEmail && (!isValidEmail || !isUniqueEmail)}
@@ -332,6 +334,7 @@ export class RegisterModal extends Component {
                 }
               />
               <TextField
+                autoComplete={false}
                 className={styles.field}
                 label={username.length ? 'Username' : 'Enter your username'}
                 error={hasFocusedUsername && (!isValidUsername || !isUniqueUsername)}
@@ -347,6 +350,7 @@ export class RegisterModal extends Component {
                 }
               />
               <TextField
+                autoComplete={false}
                 className={styles.field}
                 label={password.length ? 'Password' : 'Enter your password' }
                 error={hasFocusedPassword && !isValidPassword}
@@ -361,6 +365,7 @@ export class RegisterModal extends Component {
                 }
               />
               <TextField
+                autoComplete={false}
                 className={styles.field}
                 label={confirmPassword.length ? 'Confirmed password' : 'Confirm your password' }
                 error={hasFocusedConfirmPassword && !isPasswordConfirmed}
@@ -396,6 +401,7 @@ export class RegisterModal extends Component {
                 {uploadedAvatarUrl.length ? null : 'Drop in an image'}
               </Dropzone>
               <TextField
+                autoComplete={false}
                 className={styles.field}
                 label={firstname.length ? 'First name' : 'Enter your first name' }
                 error={hasFocusedFirstname && !firstname.length}
@@ -409,6 +415,7 @@ export class RegisterModal extends Component {
                 }
               />
               <TextField
+                autoComplete={false}
                 className={styles.field}
                 label={lastname.length ? 'Last name' : 'Enter your last name' }
                 error={hasFocusedLastname && !lastname.length}

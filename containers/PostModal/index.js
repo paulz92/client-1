@@ -11,27 +11,33 @@ import {
 import { bindActionCreators } from 'redux'
 
 import { withRedux } from '@/utils'
-import {  } from '@/actions'
+import { commentOnPost } from '@/actions'
 
 import styles from './index.scss'
 
-@withRedux(state => ({
-  user: state.auth.user,
-  carPosts: state.carPosts,
-  layout: state.layout
-}))
+@withRedux(
+  state => ({
+    user: state.auth.user,
+    carPosts: state.carPosts,
+    layout: state.layout
+  }),
+  dispatch => bindActionCreators({
+    commentOnPost
+  }, dispatch)
+)
 export class PostModal extends Component {
   state = {
     commentBody: ''
   }
 
-  handleSubmit(e) {
+  handleCommentSubmit(e) {
     e.preventDefault()
 
     const { commentBody } = this.state
-    if (commentBody) {
-      // send to api and mutate internal state
-    } 
+    if (!commentBody) return
+
+    this.props.commentOnPost(this.post.id, commentBody)
+    this.setState({ commentBody: '' })
   }
 
   get post() {
@@ -104,8 +110,13 @@ export class PostModal extends Component {
                 )}
               </div>
               {this.props.user &&
-                <form onSubmit={e => this.handleSubmit(e)}>
+                <form
+                  className={styles.commentForm}
+                  onSubmit={e => this.handleCommentSubmit(e)}
+                >
                   <TextField
+                    autoFocus={this.props.layout.modalPayload.focus}
+                    ref="commentField"
                     className={styles.newComment}
                     label="New comment"
                     value={this.state.commentBody}

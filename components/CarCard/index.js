@@ -22,7 +22,8 @@ export class CarCard extends Component {
       nickname,
       year,
       make,
-      model
+      model,
+      isFavorited,
     } = this.props
 
     const {
@@ -64,6 +65,7 @@ export class CarCard extends Component {
               </div>
               <div className={styles.actions}>
                 <IconButton
+                  style={{ color: isFavorited ? '#B71C1C' : 'rgba(0, 0, 0, 0.54)' }}
                   onClick={onFavoriteClick}
                   className={styles.action}
                 >

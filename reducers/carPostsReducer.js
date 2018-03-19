@@ -2,6 +2,8 @@ import {
   FETCHING_POSTS,
   RECIEVE_POSTS,
   RECIEVE_ERROR,
+  ADD_COMMENT,
+  TOGGLE_LIKE,
 } from '@/actions'
 
 const initialState = {
@@ -14,6 +16,29 @@ export default (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
+    case ADD_COMMENT:
+      return {
+        ...state,
+        posts: [...state.posts.map(post =>
+          (post.id === payload.postId)
+            ? { ...post, comments: [...post.comments, payload.comment] }
+            : post
+        )]
+      }
+    case TOGGLE_LIKE:
+      return {
+        ...state,
+        posts: [...state.posts.map(post => {
+          if (post.id !== payload.postId) return post
+          const likeRef = post.favorites.find(fav => fav.user.id === payload.user.id)
+          return {
+            ...post,
+            favorites: likeRef
+              ? [...post.favorites.filter(fav => fav.user.id !== payload.user.id)]
+              : [...post.favorites, { user: payload.user }]
+          }
+        })]
+      }
     case FETCHING_POSTS:
       return { ...state, loading: true }
     case RECIEVE_ERROR:

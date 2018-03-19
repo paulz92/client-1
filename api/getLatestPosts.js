@@ -35,6 +35,22 @@ export const getLatestPostsQueryString = `
         id
         name
       }
+      favorites {
+        user {
+          id
+          firstname
+          lastname
+          username
+        }
+      }
+      pins {
+        user {
+          id
+          firstname
+          lastname
+          username
+        }
+      }
     }
   }
 `

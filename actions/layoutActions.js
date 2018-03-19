@@ -16,9 +16,9 @@ export const presentNewPostModel = () => ({
   type: PRESENT_NEW_POST_MODAL,
 })
 
-export const presentPostModal = postId => ({
+export const presentPostModal = (postId, focus) => ({
   type: PRESENT_POST_MODAL,
-  payload: { postId },
+  payload: { postId, focus },
 })
 
 export const dismissModal = () => ({
