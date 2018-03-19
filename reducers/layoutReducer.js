@@ -1,7 +1,7 @@
 import {
   PRESENT_LOGIN_MODAL,
   PRESENT_REGISTER_MODAL,
-  PRESENT_POST_INFO_MODAL,
+  PRESENT_POST_MODAL,
   PRESENT_NEW_POST_MODAL,
   DISMISS_MODAL,
 } from '@/actions'
@@ -20,8 +20,8 @@ export default (state = initialState, action) => {
       return { ...state, modalType: 'LOGIN', modalPresented: true }
     case PRESENT_REGISTER_MODAL:
       return { ...state, modalType: 'REGISTER', modalPresented: true }
-    case PRESENT_POST_INFO_MODAL:
-      return { ...state, modalType: 'POST_INFO', modalPayload: payload, modalPresented: true }
+    case PRESENT_POST_MODAL:
+      return { ...state, modalType: 'POST', modalPayload: payload, modalPresented: true }
     case PRESENT_NEW_POST_MODAL:
       return { ...state, modalType: 'NEW_POST', modalPresented: true }
     case DISMISS_MODAL:

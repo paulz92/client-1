@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-export const getLatestPostsQuery = gql`
+export const getLatestPostsQueryString = `
   query {
-    res: findAllCarPosts {
+    posts: findAllCarPosts {
       id
       nickname
       year
@@ -38,3 +38,7 @@ export const getLatestPostsQuery = gql`
     }
   }
 `
+
+export const getLatestPostsQuery =
+  gql(getLatestPostsQueryString)
+

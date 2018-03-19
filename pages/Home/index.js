@@ -6,7 +6,7 @@ import SearchIcon from 'material-ui-icons/Search'
 import { CarCard, SearchBar, Title } from '@/components'
 import { Layout, CarCommentModal } from '@/containers'
 
-import { incrementCount, decrementCount } from '@/actions'
+import { fetchPosts, presentPostModal } from '@/actions'
 import {
   withTranslate,
   withReduxPage,
@@ -21,8 +21,13 @@ import {
 import styles from './index.scss'
 
 @withApollo
-@withGraphQL({ posts: getLatestPostsQuery })
-@withReduxPage()
+@withReduxPage(
+  state => ({ carPosts: state.carPosts }),
+  dispatch => bindActionCreators({
+    fetchPosts,
+    presentPostModal
+  }, dispatch)
+)
 @withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
@@ -42,19 +47,15 @@ export default class Home extends Component {
     console.log('clicked to like car')
   }
 
-  handleModalOpen = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  handleModalClose = () => {
-    this.setState({ modalOpen: false })
+  async componentDidMount() {
+    console.log('props', this.props, this.props.fetchPosts)
+    this.props.fetchPosts()
   }
 
   render() {
     const { transition, props } = this
-    const cars = props.posts.res
+    const { posts, error, loading } = this.props.carPosts
 
-    console.log(JSON.stringify(cars, null, 2))
     return (
       <Layout>
         <div className={styles.root}>
@@ -73,11 +74,11 @@ export default class Home extends Component {
             leaved={transition.leaved}
             className={styles.stackGrid}
           >
-            {cars && [...cars, ...cars, ...cars, ...cars].map((car, idx) =>
+            {posts && [...posts, ...posts, ...posts, ...posts].map((car, idx) =>
               <CarCard
                 onFavoriteClick={e => { e.stopPropagation() }}
                 onCommentClick={e => { e.stopPropagation() }}
-                onClick={() => this.handleModalOpen()}
+                onClick={() => this.props.presentPostModal(car.id)}
                 key={car.id + idx}
                 carNote={car.body}
                 pics={car.pictureUrls}
@@ -90,10 +91,6 @@ export default class Home extends Component {
                 model={car.carModel.name}
               />
             )}
-            <CarCommentModal 
-              closeModal={this.handleModalClose}
-              shouldCommentModalBeOpen={this.state.modalOpen}
-            />
           </StackGrid>
         </div>
       </Layout>

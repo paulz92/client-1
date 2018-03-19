@@ -12,6 +12,7 @@ import Slide from 'material-ui/transitions/Slide'
 import {
   LoginModal,
   RegisterModal,
+  PostModal,
 } from '@/containers'
 import styles from './index.scss'
 
@@ -24,7 +25,7 @@ export class Modal extends Component {
         return 'Login'
       case 'REGISTER':
         return 'Register'
-      case 'POST_INFO':
+      case 'POST':
         return 'Post'
       case 'NEW_POST':
         return 'New Post'
@@ -37,8 +38,8 @@ export class Modal extends Component {
         return <LoginModal />
       case 'REGISTER':
         return <RegisterModal />
-      case 'POST_INFO':
-        return 'Post'
+      case 'POST':
+        return <PostModal />
       case 'NEW_POST':
         return 'New Post'
     }
