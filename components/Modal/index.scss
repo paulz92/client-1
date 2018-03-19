@@ -1,0 +1,10 @@
+@import 'styles/mixins';
+
+.root {
+  height: 100%;
+  @include flex(column, center, center)
+}
+
+.content {
+  flex-grow: 1;
+}

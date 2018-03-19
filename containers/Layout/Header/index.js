@@ -25,16 +25,6 @@ const HeaderLink = ({ to, label }) => (
   </Link>
 )
 
-const HeaderButton = ({ to, label }) => (
-  <Button
-    onClick={() => Router.push(to)}
-    className={styles.button}
-    variant="raised"
-  >
-    {label}
-  </Button>
-)
-
 export class Header extends Component {
   state = {
     anchor: null,
@@ -42,7 +32,10 @@ export class Header extends Component {
 
   render() {
     const { anchor } = this.state
-    const { user } = this.props.auth
+    const { auth, presentLoginModal, presentRegisterModal } = this.props
+    const { user } = auth
+    
+    console.log('props', this.props)
 
     return (
       <AppBar className={styles.appBar} position="static">
@@ -57,6 +50,7 @@ export class Header extends Component {
               <Menu
                 anchorEl={anchor}
                 open={Boolean(anchor)}
+                onMouseLeave={e => this.setState({ anchor: null })}
                 onClose={() => this.setState({ anchor: null })}
                 paperProps={{ style: { width: 200 } }}
               >
@@ -68,8 +62,20 @@ export class Header extends Component {
               </Typography>
             </div>:
             <div>
-              <HeaderButton to="/register" label="REGISTER" />
-              <HeaderButton to="/login" label="LOGIN" />
+              <Button
+                variant="raised"
+                onClick={presentRegisterModal}
+                className={styles.button}
+              >
+                Register
+              </Button>
+              <Button
+                variant="raised"
+                onClick={presentLoginModal}
+                className={styles.button}
+              >
+                Login
+              </Button>
             </div>
           }
         </div>

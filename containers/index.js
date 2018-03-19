@@ -1,3 +1,5 @@
 export * from './Layout'
 export * from './CarCommentModal'
 export * from './NewPostModal'
+export * from './LoginModal'
+export * from './RegisterModal'

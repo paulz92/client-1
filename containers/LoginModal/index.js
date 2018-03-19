@@ -15,30 +15,28 @@ import {
   validateEmail,
   validateUsername,
   validatePassword,
-  withTranslate,
   withApollo,
   withGraphQL,
-  withReduxPage,
+  withRedux,
   apolloFetch
 } from '@/utils'
-import { setUser } from '@/actions'
+import { setUser, dismissModal } from '@/actions'
 import styles from './index.scss'
 
 const PLACEHOLDER_AVATAR = '/public/images/user-placeholder.svg'
 
-@withApollo
 @withGraphQL({
   login: loginMutation,
   loginWithEmail: loginWithEmailMutation
 })
-@withReduxPage(
+@withRedux(
   null,
   dispatch => bindActionCreators({
-    setUser
+    setUser,
+    dismissModal
   }, dispatch)
 )
-@withTranslate(['home', 'common'])
-export default class Login extends Component {
+export class LoginModal extends Component {
   state = {
     identifier: '',
     identifierIsEmail: false,
@@ -135,10 +133,12 @@ export default class Login extends Component {
 
     console.log(data, errors)
 
-    if (errors)
+    if (errors) {
       console.log('errors loggin in', errors)
-    else
+    } else {
       this.props.setUser(data.buffer)
+      this.props.dismissModal()
+    }
   }
 
   render() {
@@ -155,68 +155,67 @@ export default class Login extends Component {
     } = this.state
 
     return (
-      <Layout>
-        <div className={styles.root}>
-          <Typography
-            className={styles.title}
-            variant="headline"
+      <div className={styles.root}>
+        <Typography
+          className={styles.title}
+          variant="headline"
+        >
+          Please Sign In
+        </Typography>
+        <Card className={styles.card}>
+          {firstname ?
+            <Typography className={styles.greeting}>
+              Hello, {`${firstname[0].toUpperCase()}${firstname.slice(1)}`}.
+            </Typography> : null
+          }
+          <Avatar
+            className={styles.avatar}
+            src={avatarUrl}
+          />
+          <form
+            className={styles.form}
+            onSubmit={e => this.handleSubmit(e)}
           >
-            Please Sign In
-          </Typography>
-          <Card className={styles.card}>
-            {firstname ?
-              <Typography className={styles.greeting}>
-                Hello, {`${firstname[0].toUpperCase()}${firstname.slice(1)}`}.
-              </Typography> : null
-            }
-            <Avatar
-              className={styles.avatar}
-              src={avatarUrl}
-            />
-            <form
-              className={styles.form}
-              onSubmit={e => this.handleSubmit(e)}
-            >
-              <TextField
-                className={styles.field}
-                label={
-                  identifierIsValid
-                    ? identifierIsEmail
-                        ? 'Email'
-                        : 'Username'
-                    : 'Enter your username or email'
-                }
-                type="text"
-                autoComplete={false}
-                ref={textField => this.identifierField = textField}
-                onChange={e => this.handleIdentifierChange(e)}
-                value={identifier}
-                errorText="user not found"
-                error={didJustFetch && !identifierSuccess}
-              />
-              {identifierSuccess ?
-                <TextField
-                  type={shouldHidePassword ? 'password' : 'text'}
-                  autoComplete={false}
-                  className={styles.field}
-                  label={password.length ? 'Password' : 'Enter your password'}
-                  ref={textField => this.passwordField = textField}
-                  onChange={e => this.handlePasswordChange(e)}
-                  value={password}
-                /> : null
+            <TextField
+              className={styles.field}
+              label={
+                identifierIsValid
+                  ? identifierIsEmail
+                      ? 'Email'
+                      : 'Username'
+                  : 'Enter your username or email'
               }
-              <Button
-                type="submit"
-                className={styles.button}
-                disabled={!identifierIsValid}
-                variant="raised"
-              >
-                {identifierSuccess ? 'Sign In' : 'Next'}
-              </Button>
-            </form>
-          </Card>
-        </div>
-      </Layout>
+              type="text"
+              autoFocus
+              autoComplete={false}
+              onChange={e => this.handleIdentifierChange(e)}
+              value={identifier}
+              errorText="user not found"
+              error={didJustFetch && !identifierSuccess}
+            />
+            {identifierSuccess ?
+              <TextField
+                type={shouldHidePassword ? 'password' : 'text'}
+                autoFocus
+                autoComplete={false}
+                className={styles.field}
+                label={password.length ? 'Password' : 'Enter your password'}
+                ref={textField => this.passwordField = textField}
+                onChange={e => this.handlePasswordChange(e)}
+                value={password}
+              /> : null
+            }
+            <Button
+              type="submit"
+              className={styles.button}
+              disabled={!identifierIsValid}
+              variant="raised"
+            >
+              {identifierSuccess ? 'Sign In' : 'Next'}
+            </Button>
+          </form>
+        </Card>
+      </div>
     )
   }
 }
