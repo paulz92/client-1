@@ -101,7 +101,7 @@ export default class Home extends Component {
             className={styles.stackGrid}
           >
             {posts && [...posts, ...posts, ...posts, ...posts].map((car, idx) => {
-              const isFavorited = isAuthenticated && car.favorites.find(fav => fav.user.id === userId)
+              const isFavorited = isAuthenticated && car.favorites.find(fav => fav.user && fav.user.id === userId)
               return (
                 <CarCard
                   onFavoriteClick={e => this.handleCarFavorite(e, car.id)}
