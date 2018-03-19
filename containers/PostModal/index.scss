@@ -3,12 +3,11 @@
 
 .root {
   width: 1050px;
-  min-height: calc(100% - 150px);
   margin: 100px auto;
   margin-bottom: 50px;
   border-radius: 8px;
   background: #eee;
-  @include flex(column);
+  display: block;
 }
 
 .content {
@@ -26,6 +25,7 @@
   width: 85%;
   border-radius: 8px;
   transition: filter .4s ease-in-out;
+  padding-bottom: 35px;
   cursor: pointer;
 }
 
