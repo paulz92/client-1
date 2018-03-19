@@ -6,12 +6,14 @@ import {
   TextField,
   Button,
   Chip,
-  Avatar
+  Avatar,
+  IconButton
 } from 'material-ui'
+import Favorite from 'material-ui-icons/Favorite'
 import { bindActionCreators } from 'redux'
 
 import { withRedux } from '@/utils'
-import { commentOnPost } from '@/actions'
+import { commentOnPost, togglePostFavorite } from '@/actions'
 
 import styles from './index.scss'
 
@@ -22,7 +24,8 @@ import styles from './index.scss'
     layout: state.layout
   }),
   dispatch => bindActionCreators({
-    commentOnPost
+    commentOnPost,
+    togglePostFavorite
   }, dispatch)
 )
 export class PostModal extends Component {
@@ -47,13 +50,38 @@ export class PostModal extends Component {
     return this.props.carPosts.posts.find(post => post.id === postId)
   }
 
+  get isAuthenticated() {
+    return Boolean(this.props.user)
+  }
+
+  get userId() {
+    return this.isAuthenticated &&
+      this.props.user.id
+  }
+
+  get isFavorited() {
+    return this.isAuthenticated &&
+      Boolean(this.post.favorites.find(fav => fav.user.id === this.userId))
+  }
+
   render() {
-    const { post } = this
+    const { post, isFavorited } = this
     console.log('post', post)
 
     return (
       <div className={styles.root}>
         <div className={styles.toolbar}>
+        <p className={styles.headline}>
+          {post.year} {post.carModel.make.name} {post.carModel.name} &mdash; "{post.nickname}"
+        </p>
+        <div className={styles.actions}>
+          <IconButton
+            style={{ color: isFavorited ? '#B71C1C' : 'rgba(0, 0, 0, 0.54)' }}
+            onClick={() => this.props.togglePostFavorite(post.id)}
+          >
+            <Favorite />
+          </IconButton>
+        </div>
         </div>
         <div className={styles.content}>
           <div className={styles.outerRow}>
@@ -69,9 +97,6 @@ export class PostModal extends Component {
           </div>
           <div className={styles.outerRow}>
             <div className={styles.control}>
-              <p className={styles.headline}>
-                {post.year} {post.carModel.make.name} {post.carModel.name} &mdash; "{post.nickname}"
-              </p>
               <div className={styles.user}>
                 <Avatar src={post.owner.avatarUrl} />
                 <p>{post.owner.firstname} {post.owner.lastname}</p>
