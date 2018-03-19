@@ -1,55 +1,87 @@
-import Card, { CardContent, CardMedia, CardHeader } from 'material-ui/Card'
-import { Avatar, Typography, Chip, Button } from 'material-ui'
+import { Component } from 'react'
+import { IconButton, Avatar } from 'material-ui'
 import Comment from 'material-ui-icons/Comment'
-import ThumbsUp from 'material-ui-icons/ThumbUp'
+import Favorite from 'material-ui-icons/Favorite'
+import styled from 'styled-components'
 
 import styles from './index.scss'
 
-export const CarCard = (props) => {
-  const carActions = (
-    <div>
-      <ThumbsUp focusable className={styles.carAction + " " + styles.carActionLike} onClick={props.handleLike} />
-      <Comment className={styles.carAction} onClick={props.openModal} />
-    </div>
-  )
+export class CarCard extends Component {
+  state = {
+    isHovered: false,
+  }
 
-  const price = (
-    <div className={styles.buyRoot}>
-      <div className={styles.carPrice}>
-        {`${props.price}`} 
-      </div>
-      {props.email}
-    </div>
-  )
+  render() {
+    const {
+      pics,
+      onFavoriteClick,
+      onCommentClick,
+      onClick,
+      avatar,
+      handle,
+      nickname,
+      year,
+      make,
+      model,
+      isFavorited,
+    } = this.props
 
-  return (
-    <Card className={styles.carCardRoot}>
-      <CardHeader
-        classes={{ title: styles.font + " " + styles.fontName, subheader: styles.font }}
-        avatar={
-          <Avatar aria-label="profpic" className={styles.avatarPic}>
-            R
-          </Avatar>
-        }
-        title={props.owner}
-        subheader="March 19, 2018"
-      />
-      <CardMedia className={styles.carPic} image={`${props.carPic}`} title={`image of ${props.carMake} ${props.carModel}`} />
-      <CardContent className={styles.carCardContent}>
-        <Typography className={styles.carInfo + " " + styles.font + " " + styles.fontCarName} variant="headline" >
-          {`${props.carYear} ${props.carMake} ${props.carModel}`}
-        </Typography>
-        <Typography className={styles.carInfo + " " + styles.font} component="p">
-          {props.carNote}
-        </Typography>
-      </CardContent>
-      <div className={styles.carChipsRoot}>
-        {props.tags.map(tag => <Chip className={styles.carChips} label={tag} key={tag}/>)}
+    const {
+      isHovered
+    } = this.state
+
+    return (
+      <div className={styles.root}
+        onClick={onClick}
+        onMouseEnter={() => this.setState({ isHovered: true })}
+        onMouseLeave={() => this.setState({ isHovered: false })}
+      >
+        <div className={styles.outer}>
+          <div className={styles.inner}>
+            <div className={styles.mediaContainer}>
+              {pics && pics.map((pic, idx) =>
+                <img
+                  style={{filter: isHovered ? 'brightness(0.6)' : null}}
+                  key={idx}
+                  className={styles.media}
+                  src={pic}
+                />
+              )}
+              {isHovered && <div className={styles.infoContainer}>
+                <p>"{nickname}"</p>
+                <p>{year} {make} {model}</p>
+              </div>}
+            </div>
+            <div className={styles.toolBar}>
+              <div className={styles.userContainer}>
+                <Avatar
+                  className={styles.avatar}
+                  src={avatar}
+                />
+                {isHovered && <p className={styles.handle}>
+                  @{handle}
+                </p>
+                }
+              </div>
+              <div className={styles.actions}>
+                <IconButton
+                  style={{ color: isFavorited ? '#B71C1C' : 'rgba(0, 0, 0, 0.54)' }}
+                  onClick={onFavoriteClick}
+                  className={styles.action}
+                >
+                  <Favorite />
+                </IconButton>
+                <IconButton
+                  onClick={onCommentClick}
+                  className={styles.action}
+                >
+                  <Comment />
+                </IconButton>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className={styles.carActionsRoot}>
-        {props.showPrice ? price : carActions}
-      </div>
-    </Card>
-  )
+    )
+  }
 }
-  

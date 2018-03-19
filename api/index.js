@@ -7,4 +7,5 @@ export * from './uploadProfilePicture'
 export * from './createUserMutation'
 export * from './loginWithEmailMutation'
 export * from './getAuthSubjectByEmailQuery'
+export * from './getLatestPosts'
 

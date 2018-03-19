@@ -1,0 +1,150 @@
+@import 'styles/mixins';
+@import 'styles/vars';
+
+.root {
+  width: 1050px;
+  min-height: calc(100% - 150px);
+  margin: 100px auto;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  background: #eee;
+  @include flex(column);
+}
+
+.content {
+  @include flex(row);
+  width: 100%;
+}
+
+.outerRow {
+  width: 80%;
+  @include flex(row, null, center);
+}
+
+.mediaContainer {
+  @include flex(column);
+  width: 85%;
+  border-radius: 8px;
+  transition: filter .4s ease-in-out;
+  cursor: pointer;
+}
+
+.mediaContainer:hover {
+  filter: brightness(.6);
+}
+
+.media {
+  width: 100%;
+  height: auto;
+}
+
+.media:first-of-type {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.media:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+@media screen and (min-width: 1232px) {
+  width: 1090px;
+}
+
+.toolbar {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 10px;
+  @include flex(row, center);
+}
+
+.control {
+  width: 100%;
+}
+
+.headline {
+  padding-left: 50px;
+  flex-grow: 1;
+  color: #555;
+  line-height: 1.2;
+  letter-spacing: -.4px;
+  font-size: 24px;
+  font-weight: 900;
+  -webkit-font-smoothing: antialiased;
+}
+
+.actions {
+  @include flex(row, center, flex-end);
+  padding-right: 25px;
+}
+
+.chip {
+  cursor: pointer !important;
+  margin-right: 5px !important;
+}
+
+.chip:last-of-type {
+  margin-left: 0px !important;
+}
+
+.body {
+  margin-right: 25px;
+}
+
+.user {
+  @include flex(row, center);
+  cursor: pointer;
+}
+
+.user p {
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.commentsHead {
+  color: #777;
+  font-weight: 800;
+  letter-spacing: -.2px;
+  font-size: 18px;
+}
+
+.commentAvatar {
+  height: 25px !important;
+  width: 25px !important;
+  border-radius: 50% !important;
+  margin-right: 5px !important;
+}
+
+.commentTop {
+  height: 35px;
+  cursor: pointer;
+  @include flex(row, center);
+}
+
+.commentTop p {
+  font-weight: 600;
+}
+
+.commentBody {
+  margin: 0;
+  margin-left: 27.5px;
+  margin-right: 25px;
+  font-size: 16px;
+  color: #555;
+}
+
+.comment {
+  margin: 15px 0 !important; 
+}
+
+.newComment {
+  width: 80% !important;
+  margin-left: 30px !important;
+}
+
+.commentForm {
+  margin-top: -10px;
+}

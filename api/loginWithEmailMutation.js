@@ -11,6 +11,7 @@ export const loginWithEmail = `
     ) {
       token
       user {
+        id
         username
         email
         firstname
