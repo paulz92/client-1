@@ -8,6 +8,7 @@ import {
   Avatar,
   Menu,
   MenuItem,
+  ButtonBase
 } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import MoreIcon from 'material-ui-icons/MoreVert'
@@ -35,24 +36,24 @@ export class Header extends Component {
     const { auth, presentLoginModal, presentRegisterModal } = this.props
     const { user } = auth
     
-    console.log('props', this.props)
-
     return (
       <AppBar className={styles.appBar} position="static">
         <div className={styles.topToolBar}>
           {user ?
-            <div
+            <Button
               aria-haspopup
-              aria-owns={anchor ? 'simple-menu' : null}
+              aria-label="Account Menu"
+              aria-owns={anchor ? 'account-menu' : null}
               className={styles.userContainer}
               onClick={e => this.setState({ anchor: e.currentTarget })}
             >
               <Menu
+                disableAutoFocus
+                id="account-menu"
                 anchorEl={anchor}
                 open={Boolean(anchor)}
-                onMouseLeave={e => this.setState({ anchor: null })}
                 onClose={() => this.setState({ anchor: null })}
-                paperProps={{ style: { width: 200 } }}
+                onMouseLeave={() => console.log('blurred')}
               >
                 <MenuItem>Foo</MenuItem>
               </Menu>
@@ -60,7 +61,7 @@ export class Header extends Component {
               <Typography>
                 {`${user.firstname} ${user.lastname}`.toUpperCase()}
               </Typography>
-            </div>:
+            </Button>:
             <div>
               <Button
                 variant="raised"

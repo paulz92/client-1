@@ -13,6 +13,7 @@ import {
   LoginModal,
   RegisterModal,
   PostModal,
+  NewPostModal,
 } from '@/containers'
 import styles from './index.scss'
 
@@ -41,7 +42,9 @@ export class Modal extends Component {
       case 'POST':
         return <PostModal />
       case 'NEW_POST':
-        return 'New Post'
+        return <NewPostModal />
+      default:
+        return <h1>error</h1>
     }
   }
   

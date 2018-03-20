@@ -4,6 +4,7 @@ import {
   RECIEVE_ERROR,
   ADD_COMMENT,
   TOGGLE_LIKE,
+  ADD_POST
 } from '@/actions'
 
 const initialState = {
@@ -39,6 +40,8 @@ export default (state = initialState, action) => {
           }
         })]
       }
+    case ADD_POST:
+      return { ...state, posts: [ payload.post, ...state.posts ] }
     case FETCHING_POSTS:
       return { ...state, loading: true }
     case RECIEVE_ERROR:

@@ -1,134 +1,304 @@
 import { Component } from 'react'
-import { FormControl, FormHelperText, Input, InputLabel, Button, Modal, Typography, TextField, Chip } from 'material-ui';
-import PlusIcon from 'material-ui-icons/Add'
+import { TextField, MenuItem, Button } from 'material-ui'
+import { bindActionCreators } from 'redux'
 import Dropzone from 'react-dropzone'
+import PhotoCameraIcon from 'material-ui-icons/PhotoCamera'
 
+import {
+  getCarSelectionOptionsQuery,
+  uploadPostPicture,
+  createCarPostMutationString,
+} from '@/api'
+import {
+  withGraphQL,
+  withRedux,
+  apolloFetch
+} from '@/utils'
+import {
+  addPost,
+  dismissModal
+} from '@/actions'
 import styles from './index.scss'
 
+function* getRange(start, end) {
+  end = end + 1
+  while (start < end) {
+    yield start
+    start++
+  }
+}
+
+@withGraphQL({
+  selectionOptions: getCarSelectionOptionsQuery
+})
+@withRedux(
+  null,
+  dispatch => bindActionCreators({
+    addPost,
+    dismissModal
+  }, dispatch)
+)
 export class NewPostModal extends Component {
   state = {
-    newPostInfo: {
-      make: '',
-      model: '',
-      year: '',
-      title: '',
-      body: '',
-      currentTag: '',
-      tags: []
-    },
-    uploadedAvatarURL: ''
+    pictureUris: [],
+    nickname: '',
+    make: '',
+    model: '',
+    year: null,
+    description: ''
   }
 
-  handleInputChange = event => {
-    const newPostState = { ...this.state.newPostInfo }
-    const keyToUpdate = event.target.name
-    newPostState[keyToUpdate] = event.target.value
-    this.setState({ newPostInfo: newPostState })
+  get makeOptions() {
+    const { selectionOptions } = this.props
+
+    return selectionOptions
+      && selectionOptions.data
   }
 
-  handleNewTagAdded = event => {
-    event.preventDefault()
-      if (this.state.newPostInfo.currentTag.length >= 1) {
-      const copyPostState = {...this.state.newPostInfo}
-      copyPostState.tags.push(copyPostState.currentTag)
-      this.setState({ 
-        newPostInfo: {
-          ...copyPostState,
-          currentTag: ''
-        }
-      })
-    }
+  get modelOptions() {
+    const { makeOptions, state } = this
+    const { make } = state
+
+    const $make = makeOptions
+      && makeOptions
+        .find(m => m.name === make)
+    
+    return $make
+      && $make.models
   }
 
-  handleTagDelete = (event, index) => {
-    event.preventDefault()
-    const updatedTags = [...this.state.newPostInfo.tags]
-    // const deleteIndex = updatedTags.indexOf(val)
-    updatedTags.splice(index, 1)
+  get yearOptions() {
+    const { modelOptions, state } = this
+    const { model } = state
+
+    const $model = modelOptions
+      && modelOptions.find(m => m.name === model)
+    
+    if (!$model) return
+
+    const { firstYear, lastYear } = $model
+    return Array.from(getRange(
+      firstYear,
+      lastYear || (new Date).getFullYear()
+    )).reverse()
+  }
+
+  get canSubmit() {
+    const {
+      pictureUris,
+      nickname,
+      make,
+      model,
+      year,
+      description
+    } = this.state
+
+    return pictureUris[0]
+      && nickname
+      && make
+      && model
+      && year
+      && description
+  }
+
+  handleMakeChange(e) {
+    const { value } = e.target
     this.setState({
-      newPostInfo: {
-        ...this.state.newPostInfo,
-        tags: updatedTags
-      }
+      make: value
     })
   }
 
-  handlePhotoDrop = (accepted) => {
-    this.setState({ uploadedAvatarURL: accepted.shift().preview })
+  handleModelChange(e) {
+    const { value } = e.target
+
+    this.setState({
+      model: value
+    })
+  }
+
+  handleYearChange(e) {
+    const { value } = e.target
+
+    this.setState({
+      year: value
+    })
+  }
+
+  async handleFormSubmit(e) {
+    e.preventDefault()
+
+    const {
+      pictureUris,
+      nickname,
+      make,
+      model,
+      year,
+      description
+    } = this.state
+
+    if (!this.canSubmit) return
+
+    const { data, errors } = await apolloFetch({
+      query: createCarPostMutationString,
+      variables: {
+        nickname,
+        year: parseInt(year, 10),
+        carModelName: model,
+        carMakeName: make,
+        pictureUrls: pictureUris,
+        body: description,
+        tags: ['foo'],
+      }
+    })
+
+    if (errors) throw errors
+
+    this.props.addPost(data.newPost)
+    setTimeout(() => this.props.dismissModal(), 0)
+  }
+
+  async handlePictureUpload(accepted, rejected) {
+    console.log('accepted', accepted)
+    console.log('rejected', rejected)
+    const file = accepted.shift()
+    let uri
+
+    try {
+      uri = await uploadPostPicture(file)
+    } catch (err) { console.error(err) }
+
+    this.setState({
+      pictureUris: [ ...this.state.pictureUris, uri ]
+    })
   }
 
   render() {
+    const {
+      state,
+      makeOptions,
+      modelOptions,
+      yearOptions,
+      canSubmit
+    } = this
+
+    console.log('makes', makeOptions)
+    console.log('models', modelOptions)
+    console.log('year', yearOptions)
+
+    const {
+      pictureUris,
+      nickname,
+      make,
+      model,
+      year,
+      description
+    } = state
+
     return (
-      <Modal
-        className={styles.modalRoot}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={this.props.shouldNewPostModalBeOpen}
-        onClose={this.props.closeModal}
-      >
-        <div className={styles.getModalStyles}>
-          <Typography className={styles.modalTitle} variant="title">
-            New Post
-          </Typography>
-          <FormControl className={styles.makeModelYearInput} onChange={this.handleInputChange}>
-            <InputLabel htmlFor="car-make">Make</InputLabel>
-            <Input name="make" id="car-make" value={this.state.newPostInfo.make} />
-          </FormControl>
-          <FormControl className={styles.makeModelYearInput} onChange={this.handleInputChange}>
-            <InputLabel htmlFor="car-model">Model</InputLabel>
-            <Input name="model" id="car-model" value={this.state.newPostInfo.model} />
-          </FormControl>
-          <FormControl className={styles.makeModelYearInput} onChange={this.handleInputChange}>
-            <InputLabel htmlFor="car-year">Year</InputLabel>
-            <Input name="year" id="car-year" value={this.state.newPostInfo.year} />
-          </FormControl>
-          <FormControl className={styles.postTitle} onChange={this.handleInputChange}>
-            <InputLabel htmlFor="post-title">Post Title</InputLabel>
-            <Input name="title" id="post-title" value={this.state.newPostInfo.title} />
-          </FormControl>
-          <FormControl className={styles.postBody} onChange={this.handleInputChange}>
-            <TextField
-              label="Post Body"
-              name="body"
-              value={this.state.newPostInfo.body}
-              multiline
-              rows="10"
-              margin="normal" />
-          </FormControl>
-          <form onSubmit={this.handleNewTagAdded}>
-            <FormControl className={styles.tagsInput} onChange={this.handleInputChange}>
-              <InputLabel htmlFor="add-tags">Add a Tag</InputLabel>
-              <Input name="currentTag" id="add-tags" value={this.state.newPostInfo.currentTag}/>
-            </FormControl>
-            <Button type="submit" className={styles.addTagButton}>
-              <PlusIcon className={styles.plusIcon} onClick={this.handleNewTagAdded} />
-            </Button>
-          </form>
-          <div>
-            {this.state.newPostInfo.tags.map((tag, index) => 
-              <Chip
-                key={index}
-                className={styles.postChips} 
-                label={tag}
-                onDelete={(event) => this.handleTagDelete(event, index)} />
+      <div className={styles.root}>
+        <div className={styles.toolbar}>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.mediaContainer}>
+            {pictureUris && pictureUris.map((uri, idx) =>
+              <img
+                key={idx}
+                src={uri}
+                className={styles.image}
+              />
             )}
-          </div>
-          <div className={styles.dropzoneRoot}>
-            <Dropzone
-              className={styles.dropzone}
-              style={{
-                background: `url(${this.state.uploadedAvatarURL || '/public/images/user-placeholder.svg'})`
-              }}
-              accept="image/jpeg, image/png"
-              onDrop={accepted => this.handlePhotoDrop(accepted)}>
-              {this.state.uploadedAvatarURL.length ? null : 'Drop in an image'}
+            <Dropzone className={styles.dropzone}
+              accept=""
+              onDrop={(accepted, rejected) => this.handlePictureUpload(accepted, rejected)}
+            >
+              <PhotoCameraIcon className={styles.cameraIcon} />
+              <p>Click or drag and drop here to upload</p>
             </Dropzone>
           </div>
-          <div className={styles.addPostButtonRoot}>
-            <Button variant="raised" className={styles.addPostButton}>Add post</Button>
-          </div>
+          <form
+            onSubmit={e => this.handleFormSubmit(e)}
+            className={styles.form}
+          >
+            <TextField
+              autoFocus
+              autoComplete={false}
+              label="Nickname"
+              value={nickname}
+              className={styles.field}
+              styles={{marginBottom: '25px !important'}}
+              onChange={e => this.setState({ nickname: e.target.value })}
+            />
+            <TextField
+              select
+              label="Make"
+              value={make}
+              className={styles.field}
+              disabled={!Boolean(makeOptions)}
+              onChange={e => this.handleMakeChange(e)}
+            >
+              {makeOptions && makeOptions.map(({ name }) =>
+                <MenuItem
+                  key={name}
+                  value={name}
+                >
+                  {name}
+                </MenuItem>
+              )}
+            </TextField>
+            <TextField
+              select
+              label="Model"
+              value={model}
+              className={styles.field}
+              disabled={!Boolean(modelOptions)}
+              onChange={e => this.handleModelChange(e)}
+            >
+              {modelOptions && modelOptions.map(({ name }) =>
+                <MenuItem
+                  key={name}
+                  value={name}
+                >
+                  {name}
+                </MenuItem>
+              )}
+            </TextField>
+            <TextField
+              select
+              label={Boolean(year) || "Year"}
+              value={year}
+              className={styles.field}
+              disabled={!Boolean(yearOptions)}
+              onChange={e => this.handleYearChange(e)}
+            >
+              {yearOptions && yearOptions.map(n =>
+                <MenuItem
+                  key={n}
+                  value={n && n.toString()}
+                >
+                  {n}
+                </MenuItem>
+              )}
+            </TextField>
+            <TextField
+              multiline
+              rows="2"
+              rowsMax="4"
+              autoComplete={false}
+              label="Description"
+              value={description}
+              className={styles.field}
+              onChange={e => this.setState({ description: e.target.value })}
+            />
+            <Button
+              variant="raised"
+              type="submit"
+              disabled={!canSubmit}
+            >
+              Create Post
+            </Button>
+          </form>
         </div>
-      </Modal>
+      </div>
     )
   }
 }

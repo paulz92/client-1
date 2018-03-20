@@ -6,6 +6,7 @@ export const RECIEVE_POSTS = 'RECIEVE_POSTS'
 export const RECIEVE_ERROR = 'RECIEVE_ERROR'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
+export const ADD_POST = 'ADD_POST'
 
 export const fetchingPosts = () => ({ type: FETCHING_POSTS })
 export const recieveError = () => ({ type: RECIEVE_ERROR })
@@ -17,6 +18,11 @@ export const recievePosts = posts => ({
 export const addComment = (postId, comment) => ({
   type: ADD_COMMENT,
   payload: { postId, comment }
+})
+
+export const addPost = post => ({
+  type: ADD_POST,
+  payload: { post }
 })
 
 export const toggleLike = (postId, user) => ({
@@ -41,7 +47,7 @@ export const fetchPosts = () => {
       dispatch(recievePosts(posts))
     } catch (err) {
       console.error('Error fetching posts', err)
-      dispatch(recieveError())
+      dispatch(recieveError(err))
     }
   }
 }
