@@ -28,7 +28,7 @@ const developers = [
     name: "Jamal Patterson",
     role: "Frontend Developer",
     bio: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.",
-    pic: "/public/images/user-placeholder.svg"
+    pic: "/public/images/jamal.jpg"
   }
 ]
 
