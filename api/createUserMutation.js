@@ -19,6 +19,7 @@ export const createUser = `
     ) {
       token
       user {
+        id
         username
         email
         firstname

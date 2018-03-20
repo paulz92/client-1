@@ -2,7 +2,8 @@
 @import 'styles/vars';
 
 .root {
-  @include flex(column, center);
+  @include flex(column, center, center);
+  height: 100%;
   width: 100%;
 }
 

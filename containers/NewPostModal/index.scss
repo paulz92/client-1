@@ -1,0 +1,78 @@
+@import 'styles/vars';
+@import 'styles/mixins';
+
+.root {
+  width: 1050px;
+  margin: 100px auto;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  background: #eee;
+  display: block;
+}
+
+.content {
+  @include flex(row);
+  margin: 50px 0;
+}
+
+.mediaContainer {
+  height: auto;
+  width: 40%;
+  margin: 0 60px;
+  cursor: pointer;
+  @include flex(column);
+  border: 2px dashed #000;
+  border-radius: 8px;
+}
+
+.mediaContainer:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.mediaContainer:last-child {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.form {
+  margin: 0 30px;
+  height: 700px;
+  flex-grow: 4;
+  @include flex(column);
+}
+
+.field {
+  margin-bottom: 20px !important;
+}
+
+.field:first-of-type {
+  margin-bottom: 60px !important;
+}
+
+.field:last-of-type {
+  margin-top: 60px !important;
+}
+
+.dropzone {
+  width: 100%;
+  @include flex(column, center, center);
+  flex-grow: 1;
+  padding: 60px 0;
+}
+
+.dropzone p {
+  font-size: 16px;
+  width: 150px;
+  text-align: center;
+}
+
+.cameraIcon {
+  height: 30px !important;
+  width: 30px !important;
+}

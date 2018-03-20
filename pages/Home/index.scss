@@ -17,11 +17,6 @@
   width: 95% !important;
 }
 
-.card {
-  margin: 0 !important;
-  background-color: #f00 !important;
-}
-
 .torqSearchIcon {
   margin-left: 16px !important;
 }
@@ -34,4 +29,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.newFab {
+  z-index: 100 !important;
+  position: fixed !important;
+  right: 10px !important;
+  bottom: 50px !important;
+  background: #B71C1C !important;
 }

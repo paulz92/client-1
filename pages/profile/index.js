@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 
 import { ProfCard, ProfileTab } from '@/components'
-import { Layout } from '@/containers'
+import { Layout, CarCommentModal, NewPostModal } from '@/containers'
 import { withTranslate, withMaterialUI, withReduxPage } from '@/utils'
 import styles from './index.scss'
 
@@ -10,63 +10,24 @@ import styles from './index.scss'
 @withTranslate(['Profile', 'common'])
 export default class Profile extends Component {
   state = {
-    modalOpen: false,
-    newPostInfo: {
-      make: '',
-      model: '',
-      year: '',
-      title: '',
-      body: '',
-      currentTag: '',
-      tags: []
-    },
-    uploadedAvatarURL: ''
+    newPostModalOpen: false,
+    commentModalOpen: false
   }
 
-  handleModalOpen = () => {
-    this.setState({ modalOpen: true })
+  handleNewPostModalOpen = () => {
+    this.setState({ newPostModalOpen: true })
   }
 
-  handleModalClose = () => {
-    this.setState({ modalOpen: false })
+  handleNewPostModalClose = () => {
+    this.setState({ newPostModalOpen: false })
   }
 
-  handleInputChange = event => {
-    const newPostState = { ...this.state.newPostInfo }
-    const keyToUpdate = event.target.name
-    newPostState[keyToUpdate] = event.target.value
-    this.setState({ newPostInfo: newPostState })
+  handleCommentModalOpen = () => {
+    this.setState({ commentModalOpen: true })
   }
 
-  handleNewTagAdded = event => {
-    event.preventDefault()
-      if (this.state.newPostInfo.currentTag.length >= 1) {
-      const copyPostState = {...this.state.newPostInfo}
-      copyPostState.tags.push(copyPostState.currentTag)
-      this.setState({ 
-        newPostInfo: {
-          ...copyPostState,
-          currentTag: ''
-        }
-      })
-    }
-  }
-
-  handleTagDelete = (event, index) => {
-    event.preventDefault()
-    const updatedTags = [...this.state.newPostInfo.tags]
-    // const deleteIndex = updatedTags.indexOf(val)
-    updatedTags.splice(index, 1)
-    this.setState({
-      newPostInfo: {
-        ...this.state.newPostInfo,
-        tags: updatedTags
-      }
-    })
-  }
-
-  handlePhotoDrop = (accepted) => {
-    this.setState({ uploadedAvatarURL: accepted.shift().preview })
+  handleCommentModalClose = () => {
+    this.setState({ commentModalOpen: false })
   }
 
   render() {
@@ -74,22 +35,20 @@ export default class Profile extends Component {
       <Layout>
         <div className={styles.profPageHead}>
           <ProfCard 
-            shouldModalBeOpen={this.state.modalOpen} 
-            openModal={this.handleModalOpen} 
-            closeModal={this.handleModalClose}
-            newPostInfo={this.state.newPostInfo}
-            changed={this.handleInputChange}
-            tagAdd={this.handleNewTagAdded}
-            tagDelete={this.handleTagDelete}
-            uploadedAvatarURL={this.state.uploadedAvatarURL}
-            acceptedDrop={this.handlePhotoDrop}
+            openNewPostModal={this.handleNewPostModalOpen}
             name="Test McTest"
             city="Raleigh, NC"
             bio="Hey, I'm a test user from a test city with a test car." />
         </div>
         <div className={styles.profPageTabs}>
-          <ProfileTab />
+          <ProfileTab openCommentModal={this.handleCommentModalOpen}/>
         </div>
+        <NewPostModal
+          closeModal={this.handleNewPostModalClose}
+          shouldNewPostModalBeOpen={this.state.newPostModalOpen} />
+        <CarCommentModal 
+          closeModal={this.handleCommentModalClose}
+          shouldCommentModalBeOpen={this.state.commentModalOpen} />
       </Layout>
     )
   }
