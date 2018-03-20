@@ -2,6 +2,7 @@ import { Component, Children, cloneElement } from 'react'
 import { bindActionCreators } from 'redux'
 
 import {
+  unsetUser,
   dismissModal,
   presentLoginModal,
   presentRegisterModal
@@ -18,6 +19,7 @@ import styles from './index.scss'
     layout: state.layout,
   }),
   dispatch => bindActionCreators({
+    unsetUser,
     dismissModal,
     presentLoginModal,
     presentRegisterModal,
@@ -31,6 +33,7 @@ export class Layout extends Component {
         <Header
           className={styles.header}
           auth={auth}
+          unsetUser={() => this.props.unsetUser()}
           presentLoginModal={() => this.props.presentLoginModal()}
           presentRegisterModal={() => this.props.presentRegisterModal()}
         />

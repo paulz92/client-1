@@ -62,10 +62,6 @@ export default class Home extends Component {
     this.setState({ searchVal: event.target.value })
   }
 
-  async handlePostFavorite() {
-
-  } 
-
   async handleCarFavorite(e, id, isFavorited) {
     e.stopPropagation()
 
@@ -80,8 +76,6 @@ export default class Home extends Component {
         ? unfavoritePostMutationString
         : favoritePostMutationString
     })
-
-    if (errors) throw errors
 
     this.props.togglePostFavorite(id)
   }
