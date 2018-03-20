@@ -30,3 +30,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.newFab {
+  z-index: 100 !important;
+  position: fixed !important;
+  right: 10px !important;
+  bottom: 50px !important;
+  background: #B71C1C !important;
+}

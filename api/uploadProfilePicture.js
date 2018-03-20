@@ -4,6 +4,8 @@ export const uploadProfilePicture = async file => {
   const formData = new FormData()
   formData.append('file', file)
   
+  console.log('uploading file =>', file)
+
   const { data } = await axios.post('/uploadProfilePicture', formData, {
     headers: { 'X-Requested-With': 'XMLHttpRequest' },
   })

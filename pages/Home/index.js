@@ -1,35 +1,53 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
+import { Button } from 'material-ui'
 import SearchIcon from 'material-ui-icons/Search'
+import AddIcon from 'material-ui-icons/Add'
+import Pin from 'material-ui-icons/FiberPin'
 
-import { CarCard, SearchBar, Title } from '@/components'
+import {
+  CarCard,
+  SearchBar,
+  Title,
+  ProgressFlex
+} from '@/components'
 import { Layout, CarCommentModal } from '@/containers'
 
-import { fetchPosts, presentPostModal, togglePostFavorite, presentLoginModal } from '@/actions'
+import {
+  fetchPosts,
+  presentPostModal,
+  togglePostFavorite,
+  presentLoginModal,
+  presentNewPostModel,
+} from '@/actions'
 import {
   withTranslate,
   withReduxPage,
   withMaterialUI,
   withGraphQL,
-  withApollo
+  withApollo,
+  apolloFetch
 } from '@/utils'
 import {
   getLatestPostsQuery,
+  favoritePostMutationString,
+  unfavoritePostMutationString,
 } from '@/api'
 
 import styles from './index.scss'
 
-@withApollo
 @withReduxPage(
   state => ({ carPosts: state.carPosts, user: state.auth.user }),
   dispatch => bindActionCreators({
     fetchPosts,
     presentPostModal,
     presentLoginModal,
+    presentNewPostModel,
     togglePostFavorite,
   }, dispatch)
 )
+@withApollo
 @withTranslate(['Home', 'common'])
 export default class Home extends Component {
   state = {
@@ -44,14 +62,28 @@ export default class Home extends Component {
     this.setState({ searchVal: event.target.value })
   }
 
-  handleCarFavorite(e, id) {
+  async handlePostFavorite() {
+
+  } 
+
+  async handleCarFavorite(e, id, isFavorited) {
     e.stopPropagation()
 
-    if (this.isAuthenticated) {
-      this.props.togglePostFavorite(id)
-    } else {
-      this.props.presentLoginModal()
-    }
+    console.log('id => ', id)
+
+    if (!this.isAuthenticated)
+      return this.props.presentLoginModal()
+
+    const { errors } = await apolloFetch({
+      variables: { post: id },
+      query: isFavorited
+        ? unfavoritePostMutationString
+        : favoritePostMutationString
+    })
+
+    if (errors) throw errors
+
+    this.props.togglePostFavorite(id)
   }
 
   handleCarComment(e, id) {
@@ -59,6 +91,14 @@ export default class Home extends Component {
 
     if (this.isAuthenticated) {
       this.props.presentPostModal(id, true)
+    } else {
+      this.props.presentLoginModal()
+    }
+  }
+
+  handleNewPost() {
+    if (this.isAuthenticated) {
+      this.props.presentNewPostModel()
     } else {
       this.props.presentLoginModal()
     }
@@ -85,43 +125,58 @@ export default class Home extends Component {
     return (
       <Layout>
         <div className={styles.root}>
-          <StackGrid
-            monitorImagesLoaded
-            columnWidth={260}
-            duration={600}
-            gutterWidth={15}
-            gutterHeight={15}
-            easing={easings.cubicOut}
-            appearDelay={60}
-            appear={transition.appear}
-            appeared={transition.appeared}
-            enter={transition.enter}
-            entered={transition.entered}
-            leaved={transition.leaved}
-            className={styles.stackGrid}
+          {!loading || posts ?
+            <StackGrid
+              monitorImagesLoaded
+              columnWidth={260}
+              duration={600}
+              gutterWidth={15}
+              gutterHeight={15}
+              easing={easings.cubicOut}
+              appearDelay={60}
+              appear={transition.appear}
+              appeared={transition.appeared}
+              enter={transition.enter}
+              entered={transition.entered}
+              leaved={transition.leaved}
+              className={styles.stackGrid}
+            >
+              {posts && posts.map((car, idx) => {
+                const isFavorited = isAuthenticated
+                  && car.favorites
+                    .find(fav => fav.user && fav.user.id === userId)
+                    
+                return (
+                  <CarCard
+                    onFavoriteClick={e => this.handleCarFavorite(e, car.id, isFavorited)}
+                    onCommentClick={e => this.handleCarComment(e, car.id)}
+                    onClick={() => this.props.presentPostModal(car.id)}
+                    isFavorited={isFavorited}
+                    key={car.id + idx}
+                    carNote={car.body}
+                    pics={car.pictureUrls}
+                    avatar={car.owner.avatarUrl}
+                    tags={car.tags.map(tag => tag.name)}
+                    handle={car.owner.username}
+                    nickname={car.nickname}
+                    year={car.year}
+                    make={car.carModel.make.name}
+                    model={car.carModel.name}
+                  />
+                )
+              })}
+            </StackGrid> :
+            <ProgressFlex />
+          }
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="New Post"
+            className={styles.newFab}
+            onClick={() => this.props.presentNewPostModel()}
           >
-            {posts && [...posts, ...posts, ...posts, ...posts].map((car, idx) => {
-              const isFavorited = isAuthenticated && car.favorites.find(fav => fav.user && fav.user.id === userId)
-              return (
-                <CarCard
-                  onFavoriteClick={e => this.handleCarFavorite(e, car.id)}
-                  onCommentClick={e => this.handleCarComment(e, car.id)}
-                  onClick={() => this.props.presentPostModal(car.id)}
-                  isFavorited={isFavorited}
-                  key={car.id + idx}
-                  carNote={car.body}
-                  pics={car.pictureUrls}
-                  avatar={car.owner.avatarUrl}
-                  tags={car.tags.map(tag => tag.name)}
-                  handle={car.owner.username}
-                  nickname={car.nickname}
-                  year={car.year}
-                  make={car.carModel.make.name}
-                  model={car.carModel.name}
-                />
-              )
-            })}
-          </StackGrid>
+            <AddIcon />
+          </Button>
         </div>
       </Layout>
     )

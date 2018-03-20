@@ -12,8 +12,13 @@ import {
 import Favorite from 'material-ui-icons/Favorite'
 import { bindActionCreators } from 'redux'
 
-import { withRedux } from '@/utils'
+import { withRedux, apolloFetch } from '@/utils'
 import { commentOnPost, togglePostFavorite } from '@/actions'
+import {
+  addCommentMutationString,
+  favoritePostMutationString,
+  unfavoritePostMutationString
+} from '@/api'
 
 import styles from './index.scss'
 
@@ -33,15 +38,39 @@ export class PostModal extends Component {
     commentBody: ''
   }
 
-  handleCommentSubmit(e) {
+  async handleCommentSubmit(e) {
     e.preventDefault()
 
     const { commentBody } = this.state
     if (!commentBody) return
+  
+    const { errors } = await apolloFetch({
+      query: addCommentMutationString,
+      variables: { post: this.post.id, body: commentBody }
+    })
 
+    if (errors) throw errors
+    
     this.props.commentOnPost(this.post.id, commentBody)
     this.setState({ commentBody: '' })
   }
+
+  async handlePostFavorite() {
+    if (!this.isAuthenticated) return
+
+    const { isFavorited, post } = this
+
+    const { errors } = await apolloFetch({
+      variables: { post: post.id },
+      query: isFavorited
+        ? unfavoritePostMutationString
+        : favoritePostMutationString
+    })
+
+    if (errors) throw errors
+
+    this.props.togglePostFavorite(post.id)
+  } 
 
   get post() {
     const { postId } = this.props.layout.modalPayload
@@ -77,7 +106,7 @@ export class PostModal extends Component {
         <div className={styles.actions}>
           <IconButton
             style={{ color: isFavorited ? '#B71C1C' : 'rgba(0, 0, 0, 0.54)' }}
-            onClick={() => this.props.togglePostFavorite(post.id)}
+            onClick={() => this.handlePostFavorite()}
           >
             <Favorite />
           </IconButton>
