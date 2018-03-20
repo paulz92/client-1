@@ -8,10 +8,19 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  ButtonBase
+  Dialog,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  ButtonBase,
+  
+  DialogTitle
 } from 'material-ui'
 import MenuIcon from 'material-ui-icons/Menu'
 import MoreIcon from 'material-ui-icons/MoreVert'
+import AccountIcon from 'material-ui-icons/AccountCircle'
+import AddIcon from 'material-ui-icons/Add'
 
 import { Link, Router } from '@/isomorphic/routes'
 import styles from './index.scss'
@@ -26,42 +35,60 @@ const HeaderLink = ({ to, label }) => (
   </Link>
 )
 
+
+const AccountDialog = ({ onClose, selected, unsetUser, open }) => (
+  <Dialog
+    open={open}
+    onClose={onClose}
+  >
+    <DialogTitle>Your account</DialogTitle>
+    <div>
+      <List>
+        <ListItem
+          onClick={unsetUser}
+          button
+        >
+          <ListItemAvatar>
+            <AccountIcon />
+          </ListItemAvatar>
+          <ListItemText primary="log out" />
+        </ListItem>
+        <ListItem button onClick={() => console.log('does nothing')}>
+          <ListItemAvatar>
+            <Avatar>
+              <AddIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="add account" />
+        </ListItem>
+      </List>
+    </div>
+  </Dialog>
+)
+
 export class Header extends Component {
   state = {
-    anchor: null,
+    open: false,
+    selectedValue: ''
   }
 
   render() {
-    const { anchor } = this.state
-    const { auth, presentLoginModal, presentRegisterModal } = this.props
+    const { auth, presentLoginModal, presentRegisterModal, unsetUser } = this.props
     const { user } = auth
     
     return (
       <AppBar className={styles.appBar} position="static">
         <div className={styles.topToolBar}>
           {user ?
-            <Button
-              aria-haspopup
-              aria-label="Account Menu"
-              aria-owns={anchor ? 'account-menu' : null}
+            <ButtonBase
               className={styles.userContainer}
-              onClick={e => this.setState({ anchor: e.currentTarget })}
+              onClick={() => this.setState({ open: true })}
             >
-              <Menu
-                disableAutoFocus
-                id="account-menu"
-                anchorEl={anchor}
-                open={Boolean(anchor)}
-                onClose={() => this.setState({ anchor: null })}
-                onMouseLeave={() => console.log('blurred')}
-              >
-                <MenuItem>Foo</MenuItem>
-              </Menu>
               <Avatar src={user.avatarUrl || PLACEHOLDER_AVATAR} />
               <Typography>
                 {`${user.firstname} ${user.lastname}`.toUpperCase()}
               </Typography>
-            </Button>:
+            </ButtonBase>:
             <div>
               <Button
                 variant="raised"
@@ -77,6 +104,11 @@ export class Header extends Component {
               >
                 Login
               </Button>
+              <AccountDialog
+                unsetUser={unsetUser}
+                onClose={() => this.setState({ open: false })}
+                open={this.state.open}
+              />
             </div>
           }
         </div>

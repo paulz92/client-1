@@ -67,8 +67,6 @@ export class PostModal extends Component {
         : favoritePostMutationString
     })
 
-    if (errors) throw errors
-
     this.props.togglePostFavorite(post.id)
   } 
 
