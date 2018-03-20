@@ -173,7 +173,7 @@ export default class Home extends Component {
             color="primary"
             aria-label="New Post"
             className={styles.newFab}
-            onClick={() => this.props.presentNewPostModel()}
+            onClick={() => this.handleNewPost()}
           >
             <AddIcon />
           </Button>
